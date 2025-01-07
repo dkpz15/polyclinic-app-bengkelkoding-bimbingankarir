@@ -1051,7 +1051,9 @@ body {
   border: 1px solid #fff;
   color: #1a76d1;
 }
-.call-action .content .btn:before {
+.call-action .content .btn::before {
+  content: "";
+  position: absolute;
   background: #1a76d1;
 }
 .call-action .content .btn:hover {
@@ -1060,23 +1062,6 @@ body {
 }
 .call-action .content .btn:last-child {
   margin-right: 0px;
-}
-.call-action .content .second {
-  border: 1px solid #fff;
-  color: #fff;
-  background: transparent;
-  color: #fff !important;
-}
-.call-action .content .second:before {
-  background: #fff;
-}
-.call-action .content .second:hover {
-  color: #1a76d1;
-  border-color: transparent;
-  background: #fff;
-}
-.call-action .content .second i {
-  margin-left: 10px;
 }
 /*===============================
 	Start Call to action CSS
@@ -1421,7 +1406,6 @@ body {
   border-radius: 3px;
   margin: 0 0 0 -52px;
   margin-top: 49px;
-  box-sizing: ;
 }
 .testimonials .owl-dots .owl-dot {
   display: inline-block;
@@ -2002,20 +1986,11 @@ body {
 }
 .blog .single-news .news-body h2 {
   font-size: 18px;
-  font-weight: 600;
   margin-bottom: 10px;
   line-height: 24px;
 }
-.blog .single-news .news-body h2 a {
-  color: #2c2d3f;
-  font-weight: 500;
-}
-.blog .single-news .news-body h2 a:hover {
-  color: #1a76d1;
-}
 .blog .single-news .news-content p {
   font-weight: 400;
-  text-transform: capitalize;
   font-size: 13px;
   letter-spacing: 0px;
   line-height: 23px;

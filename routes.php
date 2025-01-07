@@ -1,80 +1,23 @@
-<?php
-include 'config/database.php';
-include 'controllers/adminController.php';
-include 'controllers/doctorController.php';
-include 'controllers/patientController.php';
-
-$status = ''; // Variabel untuk menyimpan status login atau registrasi
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'];
-
-    if ($action === 'login_admin_doctor') {
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        $role = $_POST['role'];
-        $address = $_POST['address'];
-        $mobile_phone_number = $_POST['mobile_phone_number'];
-        $poly_id = $_POST['poly_id'];
-        
-        if ($role === 'admin') {
-            if (adminLogin($conn, $name, $password)) {
-                $status = ['type' => 'success', 'message' => 'Login Admin Successful!', 'icon' => 'fas fa-check-circle'];
-                header('Location: views/admin/dashboard.php');
-            } else {
-                $status = ['type' => 'error', 'message' => 'Invalid Admin Credentials!', 'icon' => 'fas fa-times-circle'];
-                header('Location: views/auth/loginAdminDoctor.php');
-            }
-        } elseif ($role === 'doctor') {
-            // $sql = "INSERT INTO doctor (name, password, address, mobile_phone_number, poly_id) 
-            // VALUES ('$name', '$password', '$address', '$mobile_phone_number', '$poly_id')";
-            // return $conn->query($sql);
-
-            if (doctorLogin($conn, $name, $password, $address, $mobile_phone_number, $poly_id)) {
-                $status = ['type' => 'success', 'message' => 'Login Doctor Successful!', 'icon' => 'fas fa-check-circle'];
-                header('Location: views/doctor/dashboard.php');
-            } else {
-                $status = ['type' => 'error', 'message' => 'Invalid Doctor Credentials!', 'icon' => 'fas fa-times-circle'];
-                header('Location: views/auth/loginAdminDoctor.php');
-            }
-        }
-    } elseif ($action === 'login_patient') {
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-
-        if (patientLogin($conn, $name, $password)) {
-            $status = ['type' => 'success', 'message' => 'Login Patient Successful!', 'icon' => 'fas fa-check-circle'];
-            header('Location: views/patient/dashboard.php');
-        } else {
-            $status = ['type' => 'error', 'message' => 'Invalid Patient Credentials!', 'icon' => 'fas fa-times-circle'];
-            header('Location: views/auth/loginPatient.php');
-        }
-    } elseif ($action === 'register_patient') {
-        $name = $_POST['name'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        $address = $_POST['address'];
-        $identity_card_number = $_POST['identity_card_number'];
-        $mobile_phone_number = $_POST['mobile_phone_number'];
-        $medical_record_number = $_POST['medical_record_number'];
-
-        if (patientRegister($conn, $name, $password, $address, $identity_card_number, $mobile_phone_number, $medical_record_number)) {
-            $status = ['type' => 'success', 'message' => 'Registration Successful! Please Sign In.', 'icon' => 'fas fa-check-circle'];
-            header('Location: views/auth/loginPatient.php');
-        } else {
-            $status = ['type' => 'error', 'message' => 'Registration Failed!', 'icon' => 'fas fa-times-circle'];
-            header('Location: views/auth/registerPatient.php');
-        }
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In | Register Status</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Authentication</title>
+    <link rel="icon" href="assets/img/favicon.png">
+    <link
+    href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/icofont.css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -154,26 +97,219 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-
-    <?php if ($status): ?>
-        <!-- Modal for Success or Error -->
-        <div id="statusModal" class="modal" style="display: block;">
-            <div class="modal-content">
-                <!-- Close Button with Font Awesome -->
-                <i class="fas fa-times close" onclick="closeModal()"></i>
-                
-                <div class="status-message <?php echo $status['type']; ?>">
-                    <i class="<?php echo $status['icon']; ?> icon"></i>
-                    <?php echo $status['message']; ?>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <script>
-        function closeModal() {
-            document.getElementById("statusModal").style.display = "none";
-        }
-    </script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+<?php
+session_start();
+
+include 'config/database.php';
+include 'models_controllers/adminController.php';
+include 'models_controllers/doctorController.php';
+include 'models_controllers/patientController.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ob_start();
+
+    // Check for resubmission of "sign_in_admin_doctor"
+    if (isset($_SESSION['form_resubmitted_doctor_admin_sign_in'])) {
+        unset($_SESSION['form_resubmitted_doctor_admin_sign_in']);
+        $action = $_POST['action'];
+
+        if ($action === 'sign_in_admin_doctor') {
+            echo "<script>
+            Swal.fire({
+                title: 'Info!',
+                text: 'You resubmitted the form again. Please sign in again.',
+                icon: 'info'
+            }).then(() => {
+                window.location.href = 'views/auth/doctorAdminSignIn.php';
+            });
+            </script>";
+            exit;
+        }
+    }
+
+    // Handle "sign_in_patient" resubmission
+    if (isset($_SESSION['form_resubmitted_patient_sign_in'])) {
+        unset($_SESSION['form_resubmitted_patient_sign_in']);
+        $action = $_POST['action'];
+
+        if ($action === 'sign_in_patient') {
+            echo "<script>
+            Swal.fire({
+                title: 'Info!',
+                text: 'You resubmitted the form again for sign in. Please try again.',
+                icon: 'info'
+            }).then(() => {
+                window.location.href = 'views/auth/patientSignIn.php';
+            });
+            </script>";
+            exit;
+        }
+    }
+
+    // Handle "register_patient" resubmission
+    if (isset($_SESSION['form_resubmitted_patient_register'])) {
+        unset($_SESSION['form_resubmitted_patient_register']);
+        $action = $_POST['action'];
+
+        if ($action === 'register_patient') {
+            echo "<script>
+            Swal.fire({
+                title: 'Info!',
+                text: 'You resubmitted the form again for registration. Please try again.',
+                icon: 'info'
+            }).then(() => {
+                window.location.href = 'views/auth/patientRegister.php';
+            });
+            </script>";
+            exit;
+        }
+    }
+    
+    if ($_POST['action'] === 'sign_in_admin_doctor') {
+        $_SESSION['form_resubmitted_doctor_admin_sign_in'] = true;
+    } elseif ($_POST['action'] === 'sign_in_patient') {
+        $_SESSION['form_resubmitted_patient_sign_in'] = true;
+    } elseif ($_POST['action'] === 'register_patient') {
+        $_SESSION['form_resubmitted_patient_register'] = true;
+    }
+
+    $action = $_POST['action'];
+
+    if ($action === 'sign_in_admin_doctor') {
+        $role = $_POST['role'];
+        $name = $_POST['name'];
+        $password = $_POST['password'];
+        
+        if ($role === 'admin') {
+            // $sql = "INSERT INTO admin (name, password) VALUES ('$name', '$password')";
+            // return $conn->query($sql);
+            if (signInAdmin($conn, $name, $password)) {
+                $_SESSION['auth'] = true;
+                $_SESSION['role_type'] = $role;
+                $_SESSION['admin_name'] = $name;
+                echo "<script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Admin signed in successfully.',
+                        icon: 'success'
+                    }).then(() => {
+                        window.location.href = 'views/admin/dashboard.php';
+                    });
+                </script>";
+            } else {
+                echo "<script>
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Invalid admin credentials.',
+                        icon: 'error'
+                    }).then(() => {
+                        window.location.href = 'views/auth/doctorAdminSignIn.php';
+                    });
+                </script>";
+            }
+        } elseif ($role === 'doctor') {
+            $address = $_POST['address'];
+            $mobile_phone_number = $_POST['mobile_phone_number'];
+            $poly_id = $_POST['poly_id'];
+            // $sql = "INSERT INTO doctor (name, password, address, mobile_phone_number, poly_id) 
+            // VALUES ('$name', '$password', '$address', '$mobile_phone_number', '$poly_id')";
+            // return $conn->query($sql);
+
+            if (signInDoctor($conn, $name, $password, $address, $mobile_phone_number, $poly_id)) {
+                $_SESSION['auth'] = true;
+                $_SESSION['role_type'] = $role;
+                $_SESSION['doctor_id'] = signInDoctor($conn, $name, $password, $address, $mobile_phone_number, $poly_id);
+                $_SESSION['doctor_name'] = $name;
+                echo "<script>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Doctor signed in successfully.',
+                        icon: 'success'
+                    }).then(() => {
+                        window.location.href = 'views/doctor/dashboard.php';
+                    });
+                </script>";
+            } else {
+                echo "<script>
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Invalid doctor credentials.',
+                        icon: 'error'
+                    }).then(() => {
+                        window.location.href = 'views/auth/doctorAdminSignIn.php';
+                    });
+                </script>";
+            }
+        }
+    } elseif ($action === 'sign_in_patient') {
+        $role = 'patient';
+        $name = $_POST['name'];
+        $password = $_POST['password'];
+
+        if (signInPatient($conn, $name, $password)) {
+            $_SESSION['auth'] = true;
+            $_SESSION['role_type'] = $role;
+            $_SESSION['patient_id'] = signInPatient($conn, $name, $password);
+            $_SESSION['patient_name'] = $name;
+            echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Patient signed in successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'views/patient/dashboard.php';
+                });
+            </script>";
+        } else {
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Invalid patient credentials.',
+                    icon: 'error'
+                }).then(() => {
+                    window.location.href = 'views/auth/patientSignIn.php';
+                });
+            </script>";
+        }
+    } elseif ($action === 'register_patient') {
+        $name = $_POST['name'];
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $address = $_POST['address'];
+        $identity_card_number = $_POST['identity_card_number'];
+        $mobile_phone_number = $_POST['mobile_phone_number'];
+        $medical_record_number = $_POST['medical_record_number'];
+
+        if (registerPatient($conn, $name, $password, $address, $identity_card_number, $mobile_phone_number, $medical_record_number)) {
+            $_SESSION['auth'] = true;
+            echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Patient registered successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'views/auth/patientSignIn.php';
+                });
+            </script>";
+        } else {
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Patient registration failed.',
+                    icon: 'error'
+                }).then(() => {
+                    window.location.href = 'views/auth/patientRegister.php';
+                });
+            </script>";
+        }
+    }
+    ob_end_flush();
+}
+?>
+

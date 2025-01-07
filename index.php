@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
     <head>
         <!-- Meta Tags -->
@@ -14,34 +14,33 @@
 		
 		<!-- Favicon -->
         <link rel="icon" href="assets/img/favicon.png">
-		
 		<!-- Google Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
+		<link
+		href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+		rel="stylesheet"
+		/>
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 		<!-- Nice Select CSS -->
-		<link rel="stylesheet" href="assets/css/nice-select.css">
+		<link rel="stylesheet" href="assets/css/nice-select.css" />
 		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
 		<!-- icofont CSS -->
-        <link rel="stylesheet" href="assets/css/icofont.css">
+		<link rel="stylesheet" href="assets/css/icofont.css" />
 		<!-- Slicknav -->
-		<link rel="stylesheet" href="assets/css/slicknav.min.css">
+		<link rel="stylesheet" href="assets/css/slicknav.min.css" />
 		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="assets/css/owl-carousel.css">
+		<link rel="stylesheet" href="assets/css/owl-carousel.css" />
 		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="assets/css/datepicker.css">
+		<link rel="stylesheet" href="assets/css/datepicker.css" />
 		<!-- Animate CSS -->
-        <link rel="stylesheet" href="assets/css/animate.min.css">
+		<link rel="stylesheet" href="assets/css/animate.min.css" />
 		<!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-		
+		<link rel="stylesheet" href="assets/css/magnific-popup.css" />
 		<!-- Medipro CSS -->
-        <link rel="stylesheet" href="assets/css/normalize.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/responsive.css">
-		
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<link rel="stylesheet" href="assets/css/responsive.css" />
     </head>
     <body>
 	
@@ -63,7 +62,7 @@
 		
 		<!-- Get Pro Button -->
 		<ul class="pro-features">
-			<a class="get-pro" href="#">Get Pro</a>
+			<a class="get-pro">Get Pro</a>
 			<li class="title">Pro Version Features</li>
 			<li>Comprehensive Reports - Generate detailed analytics and reports for patient and clinic performance.</li>
 			<li>Priority Support - Enjoy 24/7 priority technical assistance for seamless operations.</li>
@@ -71,8 +70,8 @@
 			<li>Custom Features - Tailor the application to meet the unique needs of your clinic.</li>
 			<li>Unlimited Access - No restrictions on users, records, or appointments.</li>
 			<div class="button">
-				<a href="#" target="_blank" class="btn">Pro Version Demo</a>
-				<a href="#" target="_blank" class="btn">Buy Pro Version</a>
+				<a href="#home-page" target="_blank" class="btn">Pro Version Demo</a>
+				<a href="#home-page" target="_blank" class="btn">Buy Pro Version</a>
 			</div>
 		</ul>
 	
@@ -131,8 +130,8 @@
 									<h1>Your Health, Our <span>Priority</span> - Expert Care for Every <span>Patient!</span></h1>
 									<p>Dedicated to delivering personalized, expert medical care with compassion, prioritizing your health and well-being above all else.</p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">Learn More</a>
+										<a href="#contact-us-page" class="btn">Get Appointment</a>
+										<a href="#services-page" class="btn primary">Learn More</a>
 									</div>
 								</div>
 							</div>
@@ -149,8 +148,8 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Offering reliable, patient-focused medical services with professionalism and care to ensure your health and well-being.</p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">About Us</a>
+										<a href="#contact-us-page" class="btn">Get Appointment</a>
+										<a href="#about-us-page" class="btn primary">About Us</a>
 									</div>
 								</div>
 							</div>
@@ -167,8 +166,8 @@
 									<h1>Simplifying Healthcare with <span>Compassion</span> and <span>Excellence!</span></h1>
 									<p>Making healthcare accessible and efficient with compassionate care and exceptional service for a better patient experience.</p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">Contact Now</a>
+										<a href="#contact-us-page" class="btn">Get Appointment</a>
+										<a href="#contact-us-page" class="btn primary">Contact Now</a>
 									</div>
 								</div>
 							</div>
@@ -194,9 +193,9 @@
 									</div>
 									<div class="single-content">
 										<span>Patients</span>
-										<h4>Patients Registration</h4>
-										<p>If you are a Patient, please complete the Registration process first to ensure proper enrollment and access to our services.</p>
-										<a href="views/auth/registerPatient.php">REGISTER NOW<i class="fa fa-long-arrow-right"></i></a>
+										<h4>Register Patients</h4>
+										<p>If you are a Patient, please Register first to ensure proper enrollment and access to our services.</p>
+										<a href="views/auth/patientRegister.php">REGISTER NOW<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -210,9 +209,9 @@
 									</div>
 									<div class="single-content">
 										<span>Doctors</span>
-										<h4>Doctors Sign In</h4>
-										<p>If you are a Doctor, please Sign In first to begin providing Patient care and accessing their medical records and schedules.</p>
-										<a href="views/auth/loginAdminDoctor.php">SIGN IN NOW<i class="fa fa-long-arrow-right"></i></a>
+										<h4>Sign In Doctors</h4>
+										<p>If you are a Doctor, please Sign In first to begin providing Patients care and accessing their medical records and schedules.</p>
+										<a href="views/auth/doctorAdminSignIn.php">SIGN IN NOW<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -231,7 +230,7 @@
 						<div class="section-title">
 							<h2>We Are Always Ready to Help You & Your Family</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Providing Trusted Care and Support for Your Health and Well-Being, Anytime You Need Us.</p>
 						</div>
 					</div>
 				</div>
@@ -243,7 +242,7 @@
 								<i class="icofont icofont-ambulance-cross"></i>
 							</div>
 							<h3>Emergency Help</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<p>Immediate Assistance for Urgent Health Needs, Always Available.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
@@ -254,7 +253,7 @@
 								<i class="icofont icofont-medical-sign-alt"></i>
 							</div>
 							<h3>Enriched Pharmecy</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<p>Quality Medicines for Your Health, Trusted and Reliable.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
@@ -265,7 +264,7 @@
 								<i class="icofont icofont-stethoscope"></i>
 							</div>
 							<h3>Medical Treatment</h3>
-							<p>Lorem ipsum sit, consectetur adipiscing elit. Maecenas mi quam vulputate.</p>
+							<p>Comprehensive Care Tailored to Your Health Needs.</p>
 						</div>
 						<!-- End Single features -->
 					</div>
@@ -283,8 +282,8 @@
 						<div class="single-fun">
 							<i class="icofont icofont-home"></i>
 							<div class="content">
-								<span class="counter">3468</span>
-								<p>Hospital Rooms</p>
+								<span class="counter">25</span>
+								<p>Polyclinic Rooms</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -294,7 +293,7 @@
 						<div class="single-fun">
 							<i class="icofont icofont-user-alt-3"></i>
 							<div class="content">
-								<span class="counter">557</span>
+								<span class="counter">128</span>
 								<p>Specialist Doctors</p>
 							</div>
 						</div>
@@ -305,7 +304,7 @@
 						<div class="single-fun">
 							<i class="icofont-simple-smile"></i>
 							<div class="content">
-								<span class="counter">4379</span>
+								<span class="counter">5748</span>
 								<p>Happy Patients</p>
 							</div>
 						</div>
@@ -316,7 +315,7 @@
 						<div class="single-fun">
 							<i class="icofont icofont-table"></i>
 							<div class="content">
-								<span class="counter">32</span>
+								<span class="counter">11</span>
 								<p>Years of Experience</p>
 							</div>
 						</div>
@@ -335,7 +334,7 @@
 						<div class="section-title">
 							<h2>We Offer Different Services To Improve Your Health</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Explore a Range of Expert Services Designed to Promote Your Well-Being and Ensure Optimal Health for Every Stage of Life.</p>
 						</div>
 					</div>
 				</div>
@@ -344,21 +343,21 @@
 						<!-- Start Choose Left -->
 						<div class="choose-left">
 							<h3>Who We Are</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra antege vel est lobortis, a commodo magna rhoncus. In quis nisi non emet quam pharetra commodo. </p>
-							<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+							<p>We are a dedicated healthcare team committed to providing exceptional services, personalized care, and innovative solutions to enhance your health and well-being at every step of your journey. </p>
+							<p>We are committed to delivering quality healthcare services with personalized care and innovative solutions for your well-being. </p>
 							<div class="row">
 								<div class="col-lg-6">
 									<ul class="list">
-										<li><i class="fa fa-caret-right"></i>Maecenas vitae luctus nibh. </li>
-										<li><i class="fa fa-caret-right"></i>Duis massa massa.</li>
-										<li><i class="fa fa-caret-right"></i>Aliquam feugiat interdum.</li>
+										<li><i class="fa fa-caret-right"></i>Health Checkups.</li>
+										<li><i class="fa fa-caret-right"></i>Medical Consultations.</li>
+										<li><i class="fa fa-caret-right"></i>Personalized Care Plans.</li>
 									</ul>
 								</div>
 								<div class="col-lg-6">
 									<ul class="list">
-										<li><i class="fa fa-caret-right"></i>Maecenas vitae luctus nibh. </li>
-										<li><i class="fa fa-caret-right"></i>Duis massa massa.</li>
-										<li><i class="fa fa-caret-right"></i>Aliquam feugiat interdum.</li>
+										<li><i class="fa fa-caret-right"></i>Skilled Healthcare Professionals.</li>
+										<li><i class="fa fa-caret-right"></i>State-of-the-Art Facilities.</li>
+										<li><i class="fa fa-caret-right"></i>Preventive Health Screenings.</li>
 									</ul>
 								</div>
 							</div>
@@ -379,11 +378,11 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-12">
 						<div class="content">
-							<h2>Do you need Emergency Medical Care? Call @ 1234 56789</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor dictum turpis nec gravida.</p>
+							<h2>Do you need Emergency Medical Care? Call 119</h2>
+							<p>Get immediate assistance and life-saving support from trained professionals with just one call to 119.</p>
 							<div class="button">
-								<a href="#" class="btn">Contact Now</a>
-								<a href="#" class="btn second">Learn More<i class="fa fa-long-arrow-right"></i></a>
+								<a href="#contact-us-page" class="btn">Contact Now</a>
+								<a href="#services-page" class="btn">Learn More<i class="fa fa-long-arrow-right" style="margin-left:10px !important;"></i></a>
 							</div>
 						</div>
 					</div>
@@ -400,7 +399,7 @@
 						<div class="section-title">
 							<h2>We Maintain Cleanliness Rules Inside Our Polyclinic</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Ensuring a Safe and Hygienic Environment for Your Health and Well-Being During Every Visit to Our Polyclinic.</p>
 						</div>
 					</div>
 				</div>
@@ -411,35 +410,19 @@
 						<div class="owl-carousel portfolio-slider">
 							<div class="single-pf">
 								<img src="assets/img/pf1.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
+								<a href="#home-page" target="_blank" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
 								<img src="assets/img/pf2.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
+								<a href="#home-page" target="_blank" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
 								<img src="assets/img/pf3.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
+								<a href="#home-page" target="_blank" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
 								<img src="assets/img/pf4.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="assets/img/pf1.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="assets/img/pf2.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="assets/img/pf3.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="assets/img/pf4.jpg" alt="#">
-								<a href="#" class="btn">View Details</a>
+								<a href="#home-page" target="_blank" class="btn">View Details</a>
 							</div>
 						</div>
 					</div>
@@ -456,7 +439,7 @@
 						<div class="section-title">
 							<h2>We Offer Different Services To Improve Your Health</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Providing Comprehensive Care and Tailored Solutions to Support Your Health Journey and Enhance Your Overall Well-Being.</p>
 						</div>
 					</div>
 				</div>
@@ -465,8 +448,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-prescription"></i>
-							<h4><a href="#">General Treatment</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">General Treatment</a></h4>
+							<p>Comprehensive care for common illnesses, injuries, and preventive health management. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -474,8 +457,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-tooth"></i>
-							<h4><a href="#">Teeth Whitening</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">Teeth Whitening</a></h4>
+							<p>Achieve a brighter smile with our safe and effective teeth whitening treatments. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -483,8 +466,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-heart-alt"></i>
-							<h4><a href="#">Heart Surgery</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">Heart Surgery</a></h4>
+							<p>Expert heart surgery services to ensure your heart health and overall well-being. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -492,8 +475,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-listening"></i>
-							<h4><a href="#">Ear Treatment</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">Ear Treatment</a></h4>
+							<p>Specialized care for ear infections, hearing loss, and other ear-related health concerns. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -501,8 +484,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-eye-alt"></i>
-							<h4><a href="#">Vision Problems</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">Vision Problems</a></h4>
+							<p>Comprehensive eye care and treatments to improve vision and maintain ocular health. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -510,8 +493,8 @@
 						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-blood"></i>
-							<h4><a href="#">Blood Transfusion</a></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+							<h4><a href="#home-page" target="_blank">Blood Transfusion</a></h4>
+							<p>Safe and timely blood transfusions to support patients in critical medical conditions. </p>	
 						</div>
 						<!-- End Single Service -->
 					</div>
@@ -528,7 +511,7 @@
 						<div class="section-title">
 							<h2>We Provide You The Best Treatment In Resonable Price</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Affordable, High-Quality Care Tailored to Your Needs, Ensuring Your Health is Our Top Priority.</p>
 						</div>
 					</div>
 				</div>
@@ -539,23 +522,23 @@
 							<!-- Table Head -->
 							<div class="table-head">
 								<div class="icon">
-									<i class="icofont icofont-ui-cut"></i>
+									<i class="icofont icofont-tooth"></i>
 								</div>
-								<h4 class="title">Plastic Suggery</h4>
+								<h4 class="title">Teeth Whitening</h4>
 								<div class="price">
 									<p class="amount">$199<span>/ Per Visit</span></p>
 								</div>	
 							</div>
 							<!-- Table List -->
 							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Nullam interdum enim</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Donec ultricies metus</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Pellentesque eget nibh</li>
+								<li><i class="icofont icofont-ui-check"></i>Brighten Your Smile</li>
+								<li><i class="icofont icofont-ui-check"></i>Fast and Effective</li>
+								<li><i class="icofont icofont-ui-check"></i>Safe Treatment Option</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Professional Results</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Long-Lasting Effects</li>
 							</ul>
 							<div class="table-bottom">
-								<a class="btn" href="#">Book Now</a>
+								<a class="btn" href="#home-page" target="_blank">Book Now</a>
 							</div>
 							<!-- Table Bottom -->
 						</div>
@@ -567,23 +550,23 @@
 							<!-- Table Head -->
 							<div class="table-head">
 								<div class="icon">
-									<i class="icofont icofont-tooth"></i>
+									<i class="icofont icofont-heart-beat"></i>
 								</div>
-								<h4 class="title">Teeth Whitening</h4>
+								<h4 class="title">Heart Surgery</h4>
 								<div class="price">
-									<p class="amount">$299<span>/ Per Visit</span></p>
+									<p class="amount">$1239<span>/ Per Visit</span></p>
 								</div>	
 							</div>
 							<!-- Table List -->
 							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
-								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Donec ultricies metus</li>
-								<li class="cross"><i class="icofont icofont-ui-close"></i>Pellentesque eget nibh</li>
+								<li><i class="icofont icofont-ui-check"></i>Life-Saving Procedure</li>
+								<li><i class="icofont icofont-ui-check"></i>Expert Cardiologists</li>
+								<li><i class="icofont icofont-ui-check"></i>Minimally Invasive Options</li>
+								<li><i class="icofont icofont-ui-check"></i>Advanced Medical Technology</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Post-Surgery Care</li>
 							</ul>
 							<div class="table-bottom">
-								<a class="btn" href="#">Book Now</a>
+								<a class="btn" href="#home-page" target="_blank">Book Now</a>
 							</div>
 							<!-- Table Bottom -->
 						</div>
@@ -595,23 +578,23 @@
 							<!-- Table Head -->
 							<div class="table-head">
 								<div class="icon">
-									<i class="icofont-heart-beat"></i>
+									<i class="icofont icofont-ui-cut"></i>
 								</div>
-								<h4 class="title">Heart Suggery</h4>
+								<h4 class="title">Plastic Surgery</h4>
 								<div class="price">
-									<p class="amount">$399<span>/ Per Visit</span></p>
+									<p class="amount">$2259<span>/ Per Visit</span></p>
 								</div>	
 							</div>
 							<!-- Table List -->
 							<ul class="table-list">
-								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
-								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
-								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
-								<li><i class="icofont icofont-ui-check"></i>Donec ultricies metus</li>
-								<li><i class="icofont icofont-ui-check"></i>Pellentesque eget nibh</li>
+								<li><i class="icofont icofont-ui-check"></i>Cosmetic Enhancements</li>
+								<li><i class="icofont icofont-ui-check"></i>Skilled Surgeons</li>
+								<li><i class="icofont icofont-ui-check"></i>Personalized Treatment Plans</li>
+								<li><i class="icofont icofont-ui-check"></i>Advanced Techniques</li>
+								<li><i class="icofont icofont-ui-check"></i>Safe Recovery Process</li>
 							</ul>
 							<div class="table-bottom">
-								<a class="btn" href="#">Book Now</a>
+								<a class="btn" href="#home-page" target="_blank">Book Now</a>
 							</div>
 							<!-- Table Bottom -->
 						</div>
@@ -632,58 +615,64 @@
 						<div class="section-title">
 							<h2>Keep up with Our Most Recent Medical News.</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Stay Informed with the Latest Healthcare Updates, Innovations, and Expert Insights to Enhance Your Well-Being.</p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
-						<div class="single-news">
-							<div class="news-head">
-								<img src="assets/img/blog1.jpg" alt="#">
-							</div>
-							<div class="news-body">
-								<div class="news-content">
-									<div class="date">22 Aug, 2020</div>
-									<h2><a href="#">We have annnocuced our new product.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
+						<a href="#home-page" target="_blank">
+							<!-- Single Blog -->
+							<div class="single-news">
+								<div class="news-head">
+									<img src="assets/img/blog1.jpg" alt="#">
+								</div>
+								<div class="news-body">
+									<div class="news-content">
+										<div class="date">25 Aug, 2024</div>
+										<h2>Advancements in Modern Healthcare Treatments.</h2>
+										<p class="text" style="text-transform: none !important;">Stay informed about the latest breakthroughs in medical technology and treatments that enhance patient care and improve health outcomes. </p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- End Single Blog -->
+							<!-- End Single Blog -->
+						</a>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
-						<div class="single-news">
-							<div class="news-head">
-								<img src="assets/img/blog2.jpg" alt="#">
-							</div>
-							<div class="news-body">
-								<div class="news-content">
-									<div class="date">15 Jul, 2020</div>
-									<h2><a href="#">Top five way for solving teeth problems.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
+						<a href="#home-page" target="_blank">
+							<!-- Single Blog -->
+							<div class="single-news">
+								<div class="news-head">
+									<img src="assets/img/blog2.jpg" alt="#">
+								</div>
+								<div class="news-body">
+									<div class="news-content">
+										<div class="date">12 Jul, 2024</div>
+										<h2>Tips for Maintaining Optimal Heart Health.</h2>
+										<p class="text" style="text-transform: none !important;">Discover essential lifestyle tips and healthy habits to protect your heart, improve cardiovascular health, and maintain a healthy, active life.</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- End Single Blog -->
+							<!-- End Single Blog -->
+						</a>	
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
-						<div class="single-news">
-							<div class="news-head">
-								<img src="assets/img/blog3.jpg" alt="#">
-							</div>
-							<div class="news-body">
-								<div class="news-content">
-									<div class="date">05 Jan, 2020</div>
-									<h2><a href="#">We provide highly business soliutions.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
+						<a href="#home-page" target="_blank">
+							<!-- Single Blog -->
+							<div class="single-news">
+								<div class="news-head">
+									<img src="assets/img/blog3.jpg" alt="#">
+								</div>
+								<div class="news-body">
+									<div class="news-content">
+										<div class="date">18 Dec, 2024</div>
+										<h2>Understanding New Vaccination Guidelines.</h2>
+										<p class="text" style="text-transform: none !important;">Learn about the latest vaccination guidelines, their importance, and how they help protect against preventable diseases and infections.</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- End Single Blog -->
+							<!-- End Single Blog -->
+						</a>
 					</div>
 				</div>
 			</div>
@@ -711,18 +700,6 @@
 							<div class="single-clients">
 								<img src="assets/img/client5.png" alt="#">
 							</div>
-							<div class="single-clients">
-								<img src="assets/img/client1.png" alt="#">
-							</div>
-							<div class="single-clients">
-								<img src="assets/img/client2.png" alt="#">
-							</div>
-							<div class="single-clients">
-								<img src="assets/img/client3.png" alt="#">
-							</div>
-							<div class="single-clients">
-								<img src="assets/img/client4.png" alt="#">
-							</div>
 						</div>
 					</div>
 				</div>
@@ -736,64 +713,65 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
+							<h2>We Are Always Ready to Help You. Book An Appointment.</h2>
 							<img src="assets/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+							<p>Schedule Your Visit Today and Experience Compassionate, Expert Care Tailored to Meet Your Unique Health Needs.</p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-12">
-						<form class="form" action="#">
+						<form class="form form-contact-us" action="#home-page" target="_blank">
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input name="name" type="text" placeholder="Name">
+										<input name="name" type="text" placeholder="Name" style="text-transform: none !important;">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input name="email" type="email" placeholder="Email">
+										<input name="email" type="email" placeholder="Email" style="text-transform: none !important;">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input name="phone" type="text" placeholder="Phone">
+										<input name="phone" type="number" placeholder="Phone" style="text-transform: none !important;">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<div class="nice-select form-control wide" tabindex="0"><span class="current">Department</span>
+										<div class="nice-select form-control wide" tabindex="0"><span class="current">Select Poly</span>
 											<ul class="list">
-												<li data-value="1" class="option selected ">Department</li>
-												<li data-value="2" class="option">Cardiac Clinic</li>
-												<li data-value="3" class="option">Neurology</li>
-												<li data-value="4" class="option">Dentistry</li>
-												<li data-value="5" class="option">Gastroenterology</li>
+												<li data-value="1" class="option">General</li>
+												<li data-value="2" class="option">Dentistry</li>
+												<li data-value="3" class="option">Pediatrics</li>
+												<li data-value="4" class="option">Obstetrics</li>
+												<li data-value="5" class="option">Internal</li>
 											</ul>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<div class="nice-select form-control wide" tabindex="0"><span class="current">Doctor</span>
+										<div class="nice-select form-control wide" tabindex="0"><span class="current">Select Doctor</span>
 											<ul class="list">
-												<li data-value="1" class="option selected ">Doctor</li>
-												<li data-value="2" class="option">Dr. Akther Hossain</li>
-												<li data-value="3" class="option">Dr. Dery Alex</li>
-												<li data-value="4" class="option">Dr. Jovis Karon</li>
+												<li data-value="1" class="option">Dr. Santos Franco</li>
+												<li data-value="2" class="option">Dr. Jimmy Alexander</li>
+												<li data-value="3" class="option">Dr. Monica Baron</li>
+												<li data-value="4" class="option">Dr. Jarvis Derecio</li>
+												<li data-value="5" class="option">Dr. Lisa Marachi</li>
 											</ul>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
-										<input type="text" placeholder="Date" id="datepicker">
+										<input type="text" placeholder="Date" id="datepicker" style="text-transform: none !important;">
 									</div>
 								</div>
 								<div class="col-lg-12 col-md-12 col-12">
 									<div class="form-group">
-										<textarea name="message" placeholder="Write Your Message Here....."></textarea>
+										<textarea name="message" placeholder="Write Your Message Here..." style="text-transform: none !important;"></textarea>
 									</div>
 								</div>
 							</div>
@@ -828,18 +806,18 @@
 					<div class="col-lg-6  col-12">
 						<!-- Start Newsletter Form -->
 						<div class="subscribe-text ">
-							<h6>Sign up for newsletter</h6>
-							<p class="">Cu qui soleat partiendo urbanitas. Eum aperiri indoctum eu,<br> homero alterum.</p>
+							<h6>Register for Newsletter</h6>
+							<p>Stay updated with the latest health tips, news, and exclusive offers <br> straight to your inbox.</p>
 						</div>
 						<!-- End Newsletter Form -->
 					</div>
-					<div class="col-lg-6  col-12">
+					<div class="col-lg-6 col-12">
 						<!-- Start Newsletter Form -->
 						<div class="subscribe-form ">
-							<form action="#" target="_blank" class="newsletter-inner">
-								<input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Your email address'" required="" type="email">
-								<button class="btn">Subscribe</button>
+							<form action="#home-page" target="_blank" class="newsletter-inner">
+								<input name="EMAIL" placeholder="Your Email Address" class="common-input" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Your Email Address'" required="" type="email">
+								<button type="submit" class="btn">Subscribe</button>
 							</form>
 						</div>
 						<!-- End Newsletter Form -->
@@ -858,14 +836,14 @@
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>About Us</h2>
-								<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+								<p>We are dedicated to providing quality healthcare services with compassion, expertise, and a focus on patient well-being.</p>
 								<!-- Social -->
 								<ul class="social">
-									<li><a href="#"><i class="icofont-facebook"></i></a></li>
-									<li><a href="#"><i class="icofont-google-plus"></i></a></li>
-									<li><a href="#"><i class="icofont-twitter"></i></a></li>
-									<li><a href="#"><i class="icofont-vimeo"></i></a></li>
-									<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+									<li><a href="#home-page"><i class="icofont-facebook"></i></a></li>
+									<li><a href="#home-page"><i class="icofont-google-plus"></i></a></li>
+									<li><a href="#home-page"><i class="icofont-twitter"></i></a></li>
+									<li><a href="#home-page"><i class="icofont-vimeo"></i></a></li>
+									<li><a href="#home-page"><i class="icofont-pinterest"></i></a></li>
 								</ul>
 								<!-- End Social -->
 							</div>
@@ -896,21 +874,21 @@
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>Open Hours</h2>
-								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+								<p>We are available to serve you throughout the week with flexible hours.</p>
 								<ul class="time-sidual">
-									<li class="day">Monday - Friday <span>8.00-20.00</span></li>
-									<li class="day">Saturday <span>9.00-18.30</span></li>
-									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+									<li class="day">Monday - Friday <span>08.00-20.00</span></li>
+									<li class="day">Saturday <span>09.00-19.30</span></li>
+									<li class="day">Sunday <span>10.00-18.00</span></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>Newsletter</h2>
-								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-								<form target="_blank" class="newsletter-inner">
-									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Your email address'" required="" type="email">
+								<p>Subscribe to our newsletter for the latest updates, health tips, and exclusive offers delivered to your inbox.</p>
+								<form action="#home-page" target="_blank" class="newsletter-inner">
+									<input name="email" placeholder="Your Email Address" class="common-input" onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Your Email Address'" required="" type="email">
 									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
 								</form>
 							</div>
@@ -925,7 +903,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-12">
 							<div class="copyright-content">
-								<p>© Copyright 2024  |  All Rights Reserved by DARREN MARCELLINO SETIAWAN </p>
+								<p class="p-copyright"></p>
 							</div>
 						</div>
 					</div>
@@ -934,15 +912,14 @@
 			<!--/ End Copyright -->
 		</footer>
 		<!--/ End Footer Area -->
-		
-		<!-- jquery Min JS -->
-        <script src="assets/js/jquery.min.js"></script>
+
+		<script src="assets/js/jquery.min.js"></script>
 		<!-- jquery Migrate JS -->
 		<script src="assets/js/jquery-migrate-3.0.0.js"></script>
 		<!-- jquery Ui JS -->
 		<script src="assets/js/jquery-ui.min.js"></script>
 		<!-- Easing JS -->
-        <script src="assets/js/easing.js"></script>
+		<script src="assets/js/easing.js"></script>
 		<!-- Color JS -->
 		<script src="assets/js/colors.js"></script>
 		<!-- Popper JS -->
@@ -950,17 +927,17 @@
 		<!-- Bootstrap Datepicker JS -->
 		<script src="assets/js/bootstrap-datepicker.js"></script>
 		<!-- Jquery Nav JS -->
-        <script src="assets/js/jquery.nav.js"></script>
+		<script src="assets/js/jquery.nav.js"></script>
 		<!-- Slicknav JS -->
 		<script src="assets/js/slicknav.min.js"></script>
 		<!-- ScrollUp JS -->
-        <script src="assets/js/jquery.scrollUp.min.js"></script>
+		<script src="assets/js/jquery.scrollUp.min.js"></script>
 		<!-- Niceselect JS -->
 		<script src="assets/js/niceselect.js"></script>
 		<!-- Tilt Jquery JS -->
 		<script src="assets/js/tilt.jquery.min.js"></script>
 		<!-- Owl Carousel JS -->
-        <script src="assets/js/owl-carousel.js"></script>
+		<script src="assets/js/owl-carousel.js"></script>
 		<!-- counterup JS -->
 		<script src="assets/js/jquery.counterup.min.js"></script>
 		<!-- Steller JS -->
@@ -975,5 +952,10 @@
 		<script src="assets/js/bootstrap.min.js"></script>
 		<!-- Main JS -->
 		<script src="assets/js/main.js"></script>
+		<script>
+			const getYear = new Date().getFullYear();
+			const getPCopyright = document.querySelector(".p-copyright");
+			getPCopyright.innerHTML = `© Copyright ${getYear}  |  All Rights Reserved by Darren Marcellino Setiawan`;
+		</script>
     </body>
 </html>
