@@ -49,17 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $medicine_ids = $_POST['medicine_ids'];
 
         // Calculate the checkup fee
-        $checkup_fee = 150000; // Base fee
+        $check_fee = 150000; // Base fee
         foreach ($medicine_ids as $medicine_id) {
             $query = "SELECT price FROM medicine WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $medicine_id);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_assoc();
-            $checkup_fee += $result['price'];
+            $check_fee += $result['price'];
         }
 
-        if (addCheckup($conn, $poly_list_id, implode(', ', $notes), $checkup_fee)) {
+        if (addCheck($conn, $poly_list_id, implode(', ', $notes), $check_fee)) {
             $sweetAlert2DoctorCheckPatient = 
                 "Swal.fire({
                     title: 'Success!',
@@ -389,7 +389,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                                         <div class="form mt-3">
                                                             <label>Total Checkup Fee :</label>
-                                                            <input type="text" id="total-fee" class="px-2 py-2" value="<?= number_format(150000, 0, ',', '.')?>" disabled>
+                                                            <input type="text" name="medicine_prices[]" id="total-fee" class="px-2 py-2" value="<?= number_format(150000, 0, ',', '.')?>" disabled>
                                                         </div>
 
                                                         <button type="submit" name="doctor_check_patient" class="btn btn-add btn-doctor-check-patient btn-success mt-3">Check</button>
@@ -452,7 +452,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="hidden" name="medicine_ids[]" value="${medicineId}">
                             <div class="form">
                                 <label class="mt-4">Medicine :</label><br/>
-                                <input type="text" class="px-2 py-2 w-100" value="${medicineName}" disabled>
+                                <input type="text" name="medicine_names[]"class="px-2 py-2 w-100" value="${medicineName}" disabled>
                             </div>
                             <div class="form">
                                 <label class="mt-2">Medicine Notes:</label>

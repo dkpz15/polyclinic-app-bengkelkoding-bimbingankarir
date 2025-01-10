@@ -3,6 +3,6 @@ include 'doctorPatientsHistoryModel.php';
 
 function getPatientsHistory($conn, $id) {
     $doctorPatientsHistoryModel = new DoctorPatientsHistoryModel($conn);
-    return $doctorPatientsHistoryModel->get($conn, $id);
+    return $doctorPatientsHistoryModel->get($id);
 }
 ?>

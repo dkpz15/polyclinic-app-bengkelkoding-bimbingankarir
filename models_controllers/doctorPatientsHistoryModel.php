@@ -1,6 +1,12 @@
 <?php
 class DoctorPatientsHistoryModel {
-    public function get($conn, $id) {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    public function get($id) {
         $query = "SELECT c.check_date, p.name AS patient_name, c.note, c.check_fee
                   FROM checkup c
                   JOIN poly_list pl ON c.poly_list_id = pl.id
@@ -8,7 +14,7 @@ class DoctorPatientsHistoryModel {
                   JOIN check_schedule cs ON pl.schedule_id = cs.id
                   WHERE cs.doctor_id = ?
                   ORDER BY c.check_date DESC";
-        $stmt = $conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result();

@@ -28,21 +28,21 @@ function deleteDoctor($conn, $id) {
 
 function getDoctors($conn) {
     $doctorModel = new DoctorModel($conn);
-    return $doctorModel->get($conn);
+    return $doctorModel->get();
 }
 
 function updateDoctorStatus($conn, $id, $status) {
     $doctorModel = new DoctorModel($conn);
-    return $doctorModel->updateStatus($conn, $id, $status);
+    return $doctorModel->updateStatus($id, $status);
 }
 
 function getActiveDoctor($conn) {
     $doctorModel = new DoctorModel($conn);
-    return $doctorModel->getActive($conn);
+    return $doctorModel->getActive();
 }
 
 function setInactiveForOtherDoctors($conn) {
     $doctorModel = new DoctorModel($conn);
-    return $doctorModel->setInactiveForOthers($conn);
+    return $doctorModel->setInactiveForOthers();
 }
 ?>

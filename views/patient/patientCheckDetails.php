@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../config/database.php';
+include '../../models_controllers/patientCheckDetailsController.php';
 
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
     header('Location: ../auth/patientSignIn.php');
@@ -8,6 +9,12 @@ if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
 }
 
 $patientName = $_SESSION['patient_name'];
+
+$patientId = $_SESSION['patient_id'];
+
+$checkDetails = fetchCheckDetails($conn, $patientId);
+
+$sweetAlert2PatientCheckDetails = '';
 ?>
 
 <!DOCTYPE html>
@@ -15,18 +22,18 @@ $patientName = $_SESSION['patient_name'];
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Patient Dashboard</title>
+    <title>Patient Check Details</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Patient Dashboard" />
+    <meta name="title" content="Patient Check Details" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="Patient Dashboard."
+      content="Patient Check Details."
     />
     <meta
       name="keywords"
-      content="Patient Dashboard"
+      content="Patient Check Details"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
@@ -114,7 +121,7 @@ $patientName = $_SESSION['patient_name'];
             color: #fff !important;
         }
 
-        .btn-dashboard::before{
+        .btn-patient-to-poly-register::before{
             transition : 0s linear !important;
         }
         .btn-add:hover::before, .btn-add-add-modal:hover::before, .btn-update-edit-modal:hover::before{
@@ -147,7 +154,6 @@ $patientName = $_SESSION['patient_name'];
         }
         .p-copyright{
           font-weight: 500;
-          margin-top: 358px;
         }
     </style>
   </head>
@@ -194,10 +200,10 @@ $patientName = $_SESSION['patient_name'];
                         role="menu"
                         data-accordion="false"
                         >
-                        <li class="nav-item sidebar-item active">
+                        <li class="nav-item sidebar-item">
                             <a href="dashboard.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-speedometer text-primary color-i"></i>
-                                <p class="color-p" style="font-weight: 500;">Dashboard</p>
+                                <i class="nav-icon bi bi-speedometer text-primary"></i>
+                                <p style="font-weight: 500;">Dashboard</p>
                             </a>
                         <li class="nav-item sidebar-item">
                             <a href="patientToPolyRegister.php" class="nav-link sidebar-link">
@@ -205,10 +211,10 @@ $patientName = $_SESSION['patient_name'];
                                 <p style="font-weight: 500;">Register To Poly</p>
                             </a>
                         </li>
-                        <li class="nav-item sidebar-item">
+                        <li class="nav-item sidebar-item active">
                             <a href="patientCheckDetails.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-ticket-detailed text-primary"></i>
-                                <p style="font-weight: 500;">Check Details</p>
+                                <i class="nav-icon bi bi-ticket-detailed text-primary color-i"></i>
+                                <p class="color-p" style="font-weight: 500;">Check Details</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item sign-out-sidebar">
@@ -235,7 +241,7 @@ $patientName = $_SESSION['patient_name'];
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Patient Dashboard</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Check Details</a></li>
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
@@ -248,7 +254,7 @@ $patientName = $_SESSION['patient_name'];
                         class="user-image rounded-circle shadow"
                         alt="User Image"
                         />
-                        <span class="d-none d-md-inline" style="text-transform: capitalize; font-weight: 500"><?= htmlspecialchars($patientName); ?></span>
+                        <span class="d-none d-md-inline" style="text-transform: capitalize;font-weight: 500"><?= htmlspecialchars($patientName); ?></span>
                     </a>
                 <!--end::End Navbar Links-->
                 </div>
@@ -262,165 +268,37 @@ $patientName = $_SESSION['patient_name'];
                     <div class="container-fluid pe-5 w-100">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
-                                <main class="app-main">
-                                <!--begin::App Content Header-->
-                                <div class="app-content-header">
-                                  <!--begin::Container-->
-                                  <div class="container-fluid">
-                                    <!--begin::Row-->
-                                    <div class="row">
-                                      <div class="col-sm-6">
-                                        <h3 class="mb-0">
-                                            Welcome, <span style="text-transform: capitalize;"><?= htmlspecialchars($patientName); ?></span>!
-                                        </h3>
-                                      </div>
-                                      <div class="col-sm-6">
-                                      </div>
-                                    </div>
-                                    <!--end::Row-->
-                                  </div>
-                                  <!--end::Container-->
-                                </div>
-                                <!--end::App Content Header-->
-                                <!--begin::App Content-->
-                                <div class="app-content">
-                                  <!--begin::Container-->
-                                  <div class="container-fluid">
-                                    <!--begin::Row-->
-                                    <div class="row">
-                                      <!--begin::Col-->
-                                      <div class="col-lg-3 col-6">
-                                        <!--begin::Small Box Widget 1-->
-                                        <div class="small-box text-bg-primary">
-                                          <div class="inner">
-                                            <h3>150</h3>
-                                            <p>New Orders</p>
-                                          </div>
-                                          <svg
-                                            class="small-box-icon"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                          >
-                                            <path
-                                              d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
-                                            ></path>
-                                          </svg>
-                                          <a
-                                            href="#"
-                                            class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                                          >
-                                            More info <i class="bi bi-link-45deg"></i>
-                                          </a>
-                                        </div>
-                                        <!--end::Small Box Widget 1-->
-                                      </div>
-                                      <!--end::Col-->
-                                      <div class="col-lg-3 col-6">
-                                        <!--begin::Small Box Widget 2-->
-                                        <div class="small-box text-bg-success">
-                                          <div class="inner">
-                                            <h3>53<sup class="fs-5">%</sup></h3>
-                                            <p>Bounce Rate</p>
-                                          </div>
-                                          <svg
-                                            class="small-box-icon"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                          >
-                                            <path
-                                              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
-                                            ></path>
-                                          </svg>
-                                          <a
-                                            href="#"
-                                            class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                                          >
-                                            More info <i class="bi bi-link-45deg"></i>
-                                          </a>
-                                        </div>
-                                        <!--end::Small Box Widget 2-->
-                                      </div>
-                                      <!--end::Col-->
-                                      <div class="col-lg-3 col-6">
-                                        <!--begin::Small Box Widget 3-->
-                                        <div class="small-box text-bg-warning">
-                                          <div class="inner">
-                                            <h3>44</h3>
-                                            <p>User Registrations</p>
-                                          </div>
-                                          <svg
-                                            class="small-box-icon"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                          >
-                                            <path
-                                              d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"
-                                            ></path>
-                                          </svg>
-                                          <a
-                                            href="#"
-                                            class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
-                                          >
-                                            More info <i class="bi bi-link-45deg"></i>
-                                          </a>
-                                        </div>
-                                        <!--end::Small Box Widget 3-->
-                                      </div>
-                                      <!--end::Col-->
-                                      <div class="col-lg-3 col-6">
-                                        <!--begin::Small Box Widget 4-->
-                                        <div class="small-box text-bg-danger">
-                                          <div class="inner">
-                                            <h3>65</h3>
-                                            <p>Unique Visitors</p>
-                                          </div>
-                                          <svg
-                                            class="small-box-icon"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                          >
-                                            <path
-                                              clip-rule="evenodd"
-                                              fill-rule="evenodd"
-                                              d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"
-                                            ></path>
-                                            <path
-                                              clip-rule="evenodd"
-                                              fill-rule="evenodd"
-                                              d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"
-                                            ></path>
-                                          </svg>
-                                          <a
-                                            href="#"
-                                            class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                                          >
-                                            More info <i class="bi bi-link-45deg"></i>
-                                          </a>
-                                        </div>
-                                        <!--end::Small Box Widget 4-->
-                                      </div>
-                                      <!--end::Col-->
-                                    </div>
-                                    <!--end::Row-->
-                                    <!--begin::Row-->
-                                    <!-- /.row (main row) -->
-                                  <p class="p-copyright"></p>
-                                  </div>
-                                  <!--end::Container-->
-                                </div>
-                                <!--end::App Content-->
-                              </main>
+                                <h2 class="mt-4">Check Details</h2>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th class="px-3 py-2">Check Date</th>
+                                            <th class="px-3 py-2">Doctor Name</th>
+                                            <th class="px-3 py-2">Notes</th>
+                                            <th class="px-3 py-2">Total Fee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (!empty($checkDetails)): ?>
+                                            <?php foreach ($checkDetails as $detail): ?>
+                                                <tr>
+                                                    <td class="px-2 py-2"><?= htmlspecialchars($detail['check_date']) ?></td>
+                                                    <td class="px-2 py-2"><?= htmlspecialchars($detail['doctor_name']) ?></td>
+                                                    <td class="px-2 py-2"><?= nl2br(htmlspecialchars($detail['note'])) ?></td>
+                                                    <td class="px-2 py-2">Rp <?= number_format($detail['check_fee'], 0, ',', '.') ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="4" class="text-center px-2 py-2">No checkup details found.</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                                <p class="p-copyright mt-5 pb-3"></p>
                             </div>
                         </div>
-                    </div>  
+                    </div>
             </div>
         </div>
     </div>
@@ -452,6 +330,8 @@ $patientName = $_SESSION['patient_name'];
     <script src="../../assets/js/dashboard.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
+        <?= $sweetAlert2PatientCheckDetails ?>
+        
         document.addEventListener('DOMContentLoaded', function () {
             if(document.body.classList.contains("sidebar-open")){
                     const divOne = document.querySelector(".div-one");
@@ -562,8 +442,8 @@ $patientName = $_SESSION['patient_name'];
         });
 
         const getYear = new Date().getFullYear();
-        const getPCopyright = document.querySelector(".p-copyright");
-        getPCopyright.innerHTML = `© Copyright ${getYear}  |  All Rights Reserved by Darren Marcellino Setiawan`;
+		const getPCopyright = document.querySelector(".p-copyright");
+		getPCopyright.innerHTML = `© Copyright ${getYear}  |  All Rights Reserved by Darren Marcellino Setiawan`;
 
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
         const Default = {

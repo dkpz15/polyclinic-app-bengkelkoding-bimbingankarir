@@ -49,18 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Register To Poly</title>
+    <title>Patient Register To Poly</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Register To Poly" />
+    <meta name="title" content="Patient Register To Poly" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="Register To Poly."
+      content="Patient Register To Poly."
     />
     <meta
       name="keywords"
-      content="Register To Poly"
+      content="Patient Register To Poly"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
@@ -236,6 +236,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <a href="patientToPolyRegister.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-card-checklist text-primary color-i"></i>
                                 <p class="color-p" style="font-weight: 500;">Register To Poly</p>
+                            </a>
+                        </li>
+                        <li class="nav-item sidebar-item">
+                            <a href="patientCheckDetails.php" class="nav-link sidebar-link">
+                                <i class="nav-icon bi bi-ticket-detailed text-primary"></i>
+                                <p style="font-weight: 500;">Check Details</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item sign-out-sidebar">

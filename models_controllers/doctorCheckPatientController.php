@@ -3,16 +3,11 @@ include 'doctorCheckPatientModel.php';
 
 function getPatientsRegisteredForPoly($conn, $id) {
     $doctorCheckPatientModel = new DoctorCheckPatientModel($conn);
-    return $doctorCheckPatientModel->getPatientsRegister($conn, $id);
+    return $doctorCheckPatientModel->getPatientsRegister($id);
 }
 
-function calculateCheckupFee($conn, $check_id, $medicine_id) {
+function addCheck($conn, $poly_list_id, $note, $check_fee) {
     $doctorCheckPatientModel = new DoctorCheckPatientModel($conn);
-    return $doctorCheckPatientModel->calculate($conn, $check_id, $medicine_id);
-}
-
-function addCheckup($conn, $poly_list_id, $note, $checkup_fee) {
-    $doctorCheckPatientModel = new DoctorCheckPatientModel($conn);
-    return $doctorCheckPatientModel->add($conn, $poly_list_id, $note, $checkup_fee);
+    return $doctorCheckPatientModel->add($poly_list_id, $note, $check_fee);
 }
 ?>

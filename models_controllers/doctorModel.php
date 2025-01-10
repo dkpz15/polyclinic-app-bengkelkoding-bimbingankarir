@@ -48,13 +48,13 @@ class DoctorModel {
         return $stmt->execute();
     }
 
-    public function get($conn) {
+    public function get() {
         $query = "SELECT id, name, status FROM doctor";
         return $conn->query($query);
     }
 
-    public function updateStatus($conn, $id, $status) {
-        $status = $conn->real_escape_string($status);
+    public function updateStatus($id, $status) {
+        $status = $this->conn->real_escape_string($status);
         $id = (int) $id;
     
         $query = "UPDATE doctor SET status = '$status' WHERE id = $id";
@@ -65,12 +65,12 @@ class DoctorModel {
         }
     }
 
-    public function getActive($conn) {
+    public function getActive() {
         $query = "SELECT id, name FROM doctor WHERE status = 'active' LIMIT 1";
         return $conn->query($query)->fetch_assoc();
     }
 
-    public function setInactiveForOthers($conn) {
+    public function setInactiveForOthers() {
         $query = "UPDATE doctor SET status = 'inactive' WHERE status = 'active'";
         return $conn->query($query);
     }
