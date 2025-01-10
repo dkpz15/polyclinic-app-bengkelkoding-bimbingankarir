@@ -285,7 +285,7 @@ $sweetAlert2PatientCheckDetails = '';
                                                     <td class="px-2 py-2"><?= htmlspecialchars($detail['check_date']) ?></td>
                                                     <td class="px-2 py-2"><?= htmlspecialchars($detail['doctor_name']) ?></td>
                                                     <td class="px-2 py-2"><?= nl2br(htmlspecialchars($detail['note'])) ?></td>
-                                                    <td class="px-2 py-2">Rp <?= number_format($detail['check_fee'], 0, ',', '.') ?></td>
+                                                    <td class="px-2 py-2"><?= number_format($detail['check_fee'], 0, ',', '.') ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
