@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 19, 2024 at 11:40 AM
+-- Generation Time: Jan 13, 2025 at 04:42 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `password`) VALUES
-(26, 'admin', '$2y$10$yNG6jpWkyhLumnwOlBU6yuEkB/uHBdauw0QsTg9nE6Ms8mLbqxIGq');
+(28, 'admin', '$2y$10$2oR9iRUMheP2h3MAw1vrDONBRE72xq17qQKjKePZCEmz2JGVcqRHi');
 
 -- --------------------------------------------------------
 
@@ -51,8 +51,20 @@ CREATE TABLE `checkup` (
   `poly_list_id` int NOT NULL,
   `check_date` date NOT NULL,
   `note` text NOT NULL,
-  `check_fee` int DEFAULT NULL
+  `check_fee` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `checkup`
+--
+
+INSERT INTO `checkup` (`id`, `poly_list_id`, `check_date`, `note`, `check_fee`) VALUES
+(4, 4, '2025-01-07', '1x sehari sebelum makan', 160000),
+(5, 9, '2025-01-07', '3x sehari sesudah makan, 1x sehari saat malam sebelum makan', 200000),
+(6, 6, '2025-01-07', '3x sehari setelah makan', 165000),
+(7, 5, '2025-01-07', '1x sehari setelah makan saat malam, 3x sehari sebelum makan', 205000),
+(8, 7, '2025-01-09', '1x sehari setelah makan, 1x sehari setelah makan', 165000),
+(9, 10, '2025-01-09', '2x sehari saat pagi dan malam, Vitamin diminum setelah makan 3x sehari', 205000);
 
 -- --------------------------------------------------------
 
@@ -80,6 +92,21 @@ CREATE TABLE `check_schedule` (
   `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `check_schedule`
+--
+
+INSERT INTO `check_schedule` (`id`, `doctor_id`, `day`, `start_time`, `end_time`) VALUES
+(11, 37, 'Tuesday', '10:00:00', '12:30:00'),
+(12, 37, 'Friday', '18:00:00', '21:00:00'),
+(13, 38, 'Wednesday', '12:00:00', '15:40:00'),
+(14, 44, 'Monday', '08:05:00', '12:07:00'),
+(15, 44, 'Saturday', '16:00:00', '19:05:00'),
+(16, 43, 'Sunday', '12:03:00', '15:05:00'),
+(17, 43, 'Tuesday', '12:10:00', '17:05:00'),
+(18, 43, 'Friday', '20:08:00', '12:04:00'),
+(19, 43, 'Thursday', '05:04:00', '07:07:00');
+
 -- --------------------------------------------------------
 
 --
@@ -90,18 +117,22 @@ CREATE TABLE `doctor` (
   `id` int NOT NULL,
   `name` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `mobile_phone_number` int UNSIGNED NOT NULL,
-  `poly_id` int NOT NULL
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `mobile_phone_number` bigint UNSIGNED NOT NULL,
+  `poly_id` int NOT NULL,
+  `status` enum('active','inactive') DEFAULT 'inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`, `poly_id`) VALUES
-(1, 'Adi', '$2y$10$pMgo4SofUaDe7/dMlVCsNOoZVChHbvzQ.gM2aGqnzrxUnuHpyUQa2', 'Ungaran', 9871711, 1),
-(5, 'Lukas', '$2y$10$A09/EnqZUZ3QpQWKNDW94esbL2a10mowFRrUo/1IcJ1dl/TL0leZO', 'Malang', 565563243, 4);
+INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`, `poly_id`, `status`) VALUES
+(37, 'Radit', '$2y$10$Nakv48qKQFaMEcfFkftZWOZxvltYPWhGDS6B8pY0JpuLIyHIaW/p2', 'Ngaliyan', 628198291001, 1, 'inactive'),
+(38, 'Darren', '$2y$10$fI18P5BYCfhTxrPxCsfYoujRVcLl.NW3xV5WjLPAdS32noT.lYBcG', 'Tlogosari', 6281890102012, 1, 'inactive'),
+(42, 'Rudi', '$2y$10$6b0M1Hsj.IUBmmHsg/S1KeZcf/xetrs7FsLwnlZo/ezIn9T80uHye', 'Ungaran', 629189109012, 12, 'inactive'),
+(43, 'Rizal', '$2y$10$LaPp3R/ITcdTcKi6JGjV5O/95yAqbebvMrLOe8s17u8b1Yho2rG/2', 'Pleburan', 628129911282871, 11, 'active'),
+(44, 'Brahim', '$2y$10$UBoNRRoYnlXEgbKcutRY0OTPXuimUhC29PCyta3gEqSHBh0QVlvOK', 'Pandanaran', 6291715168021, 13, 'inactive');
 
 -- --------------------------------------------------------
 
@@ -112,7 +143,7 @@ INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`
 CREATE TABLE `medicine` (
   `id` int NOT NULL,
   `medicine_name` varchar(50) NOT NULL,
-  `packaging` varchar(35) DEFAULT NULL,
+  `packaging` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `price` int UNSIGNED DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -121,7 +152,10 @@ CREATE TABLE `medicine` (
 --
 
 INSERT INTO `medicine` (`id`, `medicine_name`, `packaging`, `price`) VALUES
-(2, 'Paracetamol', 'Racikan', 10000);
+(13, 'Paracetamol', 'Plastik', 10000),
+(14, 'Paramex', 'Kardus', 5000),
+(15, 'Konidin', 'Kertas', 15000),
+(16, 'Vitamin', 'Kapsul', 45000);
 
 -- --------------------------------------------------------
 
@@ -133,10 +167,10 @@ CREATE TABLE `patient` (
   `id` int NOT NULL,
   `name` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `identity_card_number` int UNSIGNED NOT NULL,
-  `mobile_phone_number` int UNSIGNED NOT NULL,
-  `medical_record_number` char(10) DEFAULT NULL
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `identity_card_number` bigint UNSIGNED NOT NULL,
+  `mobile_phone_number` bigint UNSIGNED NOT NULL,
+  `medical_record_number` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -144,8 +178,10 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id`, `name`, `password`, `address`, `identity_card_number`, `mobile_phone_number`, `medical_record_number`) VALUES
-(4, 'Darren Marcellino Setiawan', '$2y$10$5LILG6g47V/GgLIFh8KV1OQ6GPHttB5cR.3UjYiu/y7zrWBo5Aeb2', 'Tlogosari', 12345678, 817281991, '202412-1'),
-(7, 'Darren Marcellino', '$2y$10$cJiklPpnMbOO3Og0IRqjY.Z539kKOo3a9IgBFYsTCOyryTtE.jRE2', 'Banyuwangi', 1234671, 28372191, '202412-2');
+(55, 'Darren Marcellino ', '$2y$10$APdZeWNiOX1Akw7eNkk4euSRJ.IC1Our.9tATtyLL2TH8deRPR656', 'Tlogosari', 339188881211, 6291992198267, '202501-1'),
+(56, 'Yohanes Diyan Hariawan', '$2y$10$RkjjBM/gAvlet.GF.wnAne63oeGhbJrXRbTERwH/h.ubwbAxBPe.e', 'Ngaliyan', 3918812992938, 621892200111, '202501-2'),
+(57, 'Ardennata Winarto', '$2y$10$UgT0dmNRd1vNceoBZWVPFedGeBOwTiDkweqTlHfwH.RZGMTiwDqRm', 'Tanah Putih', 31882912021012, 629891881289912, '202501-3'),
+(58, 'Steven Felisiano', '$2y$10$ezMM2d4hVRFU90preB7YFuO86ZkDyKflX2qAVtlJlqdUTnoWD.Nz6', 'Karangwulan', 71881818223823, 628199199929, '202501-4');
 
 -- --------------------------------------------------------
 
@@ -156,7 +192,7 @@ INSERT INTO `patient` (`id`, `name`, `password`, `address`, `identity_card_numbe
 CREATE TABLE `poly` (
   `id` int NOT NULL,
   `poly_name` varchar(25) NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -164,9 +200,10 @@ CREATE TABLE `poly` (
 --
 
 INSERT INTO `poly` (`id`, `poly_name`, `description`) VALUES
-(1, 'Gigi', 'jisqsq'),
-(4, 'Umum', 'sxadedee'),
-(5, 'Penyakit Dalam', 'yhjhmhnh');
+(1, 'Gigi', 'Poli Gigi'),
+(11, 'Umum', 'Poli Umum'),
+(12, 'Saraf', 'Poli Saraf'),
+(13, 'Psikologi', 'Poli Psikologi');
 
 -- --------------------------------------------------------
 
@@ -179,8 +216,23 @@ CREATE TABLE `poly_list` (
   `patient_id` int NOT NULL,
   `schedule_id` int NOT NULL,
   `complaint` text NOT NULL,
-  `queue_number` int DEFAULT NULL
+  `queue_number` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `poly_list`
+--
+
+INSERT INTO `poly_list` (`id`, `patient_id`, `schedule_id`, `complaint`, `queue_number`) VALUES
+(3, 55, 11, '0', 1),
+(4, 56, 13, '0', 1),
+(5, 56, 18, '0', 1),
+(6, 57, 16, '0', 1),
+(7, 57, 18, '0', 2),
+(8, 57, 12, '0', 1),
+(9, 57, 13, '0', 2),
+(10, 58, 16, '1', 2),
+(11, 58, 14, '1', 1);
 
 --
 -- Indexes for dumped tables
@@ -255,13 +307,13 @@ ALTER TABLE `poly_list`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `checkup`
 --
 ALTER TABLE `checkup`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `check_detail`
@@ -273,37 +325,37 @@ ALTER TABLE `check_detail`
 -- AUTO_INCREMENT for table `check_schedule`
 --
 ALTER TABLE `check_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `poly`
 --
 ALTER TABLE `poly`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `poly_list`
 --
 ALTER TABLE `poly_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

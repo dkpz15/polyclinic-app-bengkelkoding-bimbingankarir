@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../config/database.php';
+include '../../models_controllers/adminController.php';
 
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
     header('Location: ../auth/doctorAdminSignIn.php');
@@ -8,6 +9,8 @@ if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
 }
 
 $adminName = $_SESSION['admin_name'];
+
+$counts = getDashboardAdminCounts($conn);
 ?>
 
 <!DOCTYPE html>
@@ -305,8 +308,8 @@ $adminName = $_SESSION['admin_name'];
                                         <!--begin::Small Box Widget 1-->
                                         <div class="small-box text-bg-primary">
                                           <div class="inner">
-                                            <h3>150</h3>
-                                            <p>New Orders</p>
+                                            <h3><?= $counts['doctors'] ?></h3>
+                                            <p class="text-white">Doctors</p>
                                           </div>
                                           <svg
                                             class="small-box-icon"
@@ -320,7 +323,7 @@ $adminName = $_SESSION['admin_name'];
                                             ></path>
                                           </svg>
                                           <a
-                                            href="#"
+                                            href="doctorManage.php"
                                             class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                                           >
                                             More info <i class="bi bi-link-45deg"></i>
@@ -333,8 +336,8 @@ $adminName = $_SESSION['admin_name'];
                                         <!--begin::Small Box Widget 2-->
                                         <div class="small-box text-bg-success">
                                           <div class="inner">
-                                            <h3>53<sup class="fs-5">%</sup></h3>
-                                            <p>Bounce Rate</p>
+                                            <h3><?= $counts['patients'] ?></h3>
+                                            <p class="text-white">Patients</p>
                                           </div>
                                           <svg
                                             class="small-box-icon"
@@ -348,7 +351,7 @@ $adminName = $_SESSION['admin_name'];
                                             ></path>
                                           </svg>
                                           <a
-                                            href="#"
+                                            href="patientManage.php"
                                             class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                                           >
                                             More info <i class="bi bi-link-45deg"></i>
@@ -361,8 +364,8 @@ $adminName = $_SESSION['admin_name'];
                                         <!--begin::Small Box Widget 3-->
                                         <div class="small-box text-bg-warning">
                                           <div class="inner">
-                                            <h3>44</h3>
-                                            <p>User Registrations</p>
+                                            <h3 class="text-white"><?= $counts['polies'] ?></h3>
+                                            <p class="text-white">Polies</p>
                                           </div>
                                           <svg
                                             class="small-box-icon"
@@ -376,8 +379,8 @@ $adminName = $_SESSION['admin_name'];
                                             ></path>
                                           </svg>
                                           <a
-                                            href="#"
-                                            class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                                            href="polyManage.php"
+                                            class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover text-white"
                                           >
                                             More info <i class="bi bi-link-45deg"></i>
                                           </a>
@@ -389,8 +392,8 @@ $adminName = $_SESSION['admin_name'];
                                         <!--begin::Small Box Widget 4-->
                                         <div class="small-box text-bg-danger">
                                           <div class="inner">
-                                            <h3>65</h3>
-                                            <p>Unique Visitors</p>
+                                            <h3><?= $counts['medicines'] ?></h3>
+                                            <p class="text-white">Medicines</p>
                                           </div>
                                           <svg
                                             class="small-box-icon"
@@ -411,7 +414,7 @@ $adminName = $_SESSION['admin_name'];
                                             ></path>
                                           </svg>
                                           <a
-                                            href="#"
+                                            href="medicineManage.php"
                                             class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                                           >
                                             More info <i class="bi bi-link-45deg"></i>
