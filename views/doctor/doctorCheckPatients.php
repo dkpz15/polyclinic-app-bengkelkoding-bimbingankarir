@@ -21,14 +21,15 @@ $doctor = $result->fetch_assoc();
 
 $sweetAlert2DoctorCheckPatient = '';
 
-if ($doctor['status'] === 'active' && !isset($_GET['alert_shown'])) {
+if ($doctor['status'] === 'active' &&  empty($_SESSION['alert_shown'])) {
+    $_SESSION['alert_shown'] = true;
     $sweetAlert2DoctorCheckPatient =  
         "Swal.fire({
             icon: 'success',
             title: 'Access Granted',
             text: 'You are authorized to check patients because your status are active.'
         }).then(() => {
-            window.location.href = 'doctorCheckPatients.php?alert_shown=1';
+            window.location.href = 'doctorCheckPatients.php';
         });";
 } else if ($doctor['status'] === 'inactive') {
     $sweetAlert2DoctorCheckPatient =  
@@ -40,7 +41,6 @@ if ($doctor['status'] === 'active' && !isset($_GET['alert_shown'])) {
             window.location.href = 'dashboard.php';
         });";
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
     if (isset($_POST['doctor_check_patient'])) {
