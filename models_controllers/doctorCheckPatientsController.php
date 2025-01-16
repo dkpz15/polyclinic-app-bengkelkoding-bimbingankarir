@@ -1,5 +1,5 @@
 <?php
-include 'doctorCheckPatientModel.php';
+include 'doctorCheckPatientsModel.php';
 
 function getPatientsRegisteredForPoly($conn, $id) {
     $doctorCheckPatientModel = new DoctorCheckPatientModel($conn);

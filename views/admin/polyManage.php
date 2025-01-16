@@ -175,7 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;

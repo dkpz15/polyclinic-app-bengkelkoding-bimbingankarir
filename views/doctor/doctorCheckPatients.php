@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../../config/database.php';
-include '../../models_controllers/doctorCheckPatientController.php';
+include '../../models_controllers/doctorCheckPatientsController.php';
 
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
     header('Location: ../auth/doctorAdminSignIn.php');
@@ -28,7 +28,7 @@ if ($doctor['status'] === 'active' && !isset($_GET['alert_shown'])) {
             title: 'Access Granted',
             text: 'You are authorized to check patients because your status are active.'
         }).then(() => {
-            window.location.href = 'doctorCheckPatient.php?alert_shown=1';
+            window.location.href = 'doctorCheckPatients.php?alert_shown=1';
         });";
 } else if ($doctor['status'] === 'inactive') {
     $sweetAlert2DoctorCheckPatient =  
@@ -45,7 +45,7 @@ if ($doctor['status'] === 'active' && !isset($_GET['alert_shown'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
     if (isset($_POST['doctor_check_patient'])) {
         $poly_list_id = $_POST['poly_list_id'];
-        $notes = $_POST['notes'];
+        $note = $_POST['note'];
         $medicine_ids = $_POST['medicine_ids'];
 
         // Calculate the checkup fee
@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $check_fee += $result['price'];
         }
 
-        if (addCheck($conn, $poly_list_id, implode(', ', $notes), $check_fee)) {
+        if (addCheck($conn, $poly_list_id, implode(', ', $note), $check_fee)) {
             $sweetAlert2DoctorCheckPatient = 
                 "Swal.fire({
                     title: 'Success!',
                     text: 'Patient checkup recorded successfully.',
                     icon: 'success'
                 }).then(() => {
-                    window.location.href = 'doctorCheckPatient.php';
+                    window.location.href = 'doctorCheckPatients.php';
                 });";
         } else {
             $sweetAlert2DoctorCheckPatient = 
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     text: 'Record patient checkup failed.',
                     icon: 'error'
                 }).then(() => {
-                    window.location.href = 'doctorCheckPatient.php';
+                    window.location.href = 'doctorCheckPatients.php';
                 });";
         }
     }
@@ -166,7 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -283,9 +285,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </a>
                         </li>
                         <li class="nav-item sidebar-item active">
-                            <a href="doctorCheckPatient.php" class="nav-link sidebar-link">
+                            <a href="doctorCheckPatients.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-calendar2-check text-primary color-i"></i>
-                                <p class="color-p" style="font-weight: 500;">Check Patient</p>
+                                <p class="color-p" style="font-weight: 500;">Check Patients</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">
@@ -318,7 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Check Patient</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Check Patients</a></li>
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
@@ -345,7 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="container-fluid pe-5 w-100">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
-                                <h2 class="mt-4">Check Patient</h2>
+                                <h2 class="mt-4">Check Patients</h2>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr class="text-center">
@@ -362,7 +364,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <td class="px-2 py-2"><?= $row['complaint'] ?></td>
                                                 <td class="px-2 py-2"><?= $row['queue_number'] ?></td>
                                                 <td class="px-2 py-2">
-                                                    <form method="POST" action="doctorCheckPatient.php">
+                                                    <form method="POST" action="doctorCheckPatients.php">
                                                         <input type="hidden" name="poly_list_id" value="<?= $row['poly_list_id'] ?>">
 
                                                         <div id="medicine-container">
@@ -456,7 +458,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="form">
                                 <label class="mt-2">Medicine Notes:</label>
-                                <textarea name="notes[]" class="px-2 py-2" style="min-height: 150px;" required></textarea>
+                                <textarea name="note[]" class="px-2 py-2" style="min-height: 150px;" required></textarea>
                             </div>
                             <button type="button" class="btn btn-delete btn-doctor-check-patient btn-danger remove-medicine mt-2" data-id="${medicineId}" data-price="${medicinePrice}">
                                 Remove

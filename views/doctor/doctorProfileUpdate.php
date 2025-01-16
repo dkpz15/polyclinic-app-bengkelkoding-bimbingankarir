@@ -174,7 +174,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -291,9 +293,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">
-                            <a href="doctorCheckPatient.php" class="nav-link sidebar-link">
+                            <a href="doctorCheckPatients.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-calendar2-check text-primary"></i>
-                                <p style="font-weight: 500;">Check Patient</p>
+                                <p style="font-weight: 500;">Check Patients</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">

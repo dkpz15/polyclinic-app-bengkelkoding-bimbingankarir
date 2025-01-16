@@ -22,7 +22,7 @@ class DoctorCheckPatientModel {
     public function add($poly_list_id, $note, $check_fee) {
         $query = "INSERT INTO checkup (poly_list_id, check_date, note, check_fee) VALUES (?, NOW(), ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("isi", $poly_list_id, $notes, $check_fee);
+        $stmt->bind_param("isi", $poly_list_id, $note, $check_fee);
         if ($stmt->execute()) {
             $check_id = $stmt->insert_id;
     

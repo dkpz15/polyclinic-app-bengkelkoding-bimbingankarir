@@ -101,7 +101,9 @@ $sweetAlert2PatientCheckDetails = '';
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -295,7 +297,7 @@ $sweetAlert2PatientCheckDetails = '';
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-                                <p class="p-copyright mt-5 pb-3"></p>
+                                <p class="p-copyright pb-3"></p>
                             </div>
                         </div>
                     </div>

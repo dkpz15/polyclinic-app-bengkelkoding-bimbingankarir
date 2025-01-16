@@ -21,7 +21,7 @@ The Polyclinic App is a web-based application designed to manage and streamline 
 
 ### Admin
 
-- Sign in and Sign Out.
+- Sign In and Sign Out.
 - Manage Doctors: View, add, edit, and delete Doctors.
 - Manage Patients: View, edit, and delete Patients.
 - Manage Polies: View, add, edit, and delete Polies.

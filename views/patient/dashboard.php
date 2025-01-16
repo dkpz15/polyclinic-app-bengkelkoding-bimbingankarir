@@ -94,7 +94,9 @@ $patientName = $_SESSION['patient_name'];
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -147,7 +149,6 @@ $patientName = $_SESSION['patient_name'];
         }
         .p-copyright{
           font-weight: 500;
-          margin-top: 358px;
         }
     </style>
   </head>
@@ -350,7 +351,7 @@ $patientName = $_SESSION['patient_name'];
                                     <!--end::Row-->
                                     <!--begin::Row-->
                                     <!-- /.row (main row) -->
-                                  <p class="p-copyright"></p>
+                                  <p class="p-copyright pb-3"></p>
                                   </div>
                                   <!--end::Container-->
                                 </div>

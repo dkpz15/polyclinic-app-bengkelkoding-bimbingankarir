@@ -97,8 +97,11 @@ $counts = getDashboardAdminCounts($conn);
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -150,7 +153,6 @@ $counts = getDashboardAdminCounts($conn);
         }
         .p-copyright{
           font-weight: 500;
-          margin-top: 358px;
         }
     </style>
   </head>
@@ -427,7 +429,7 @@ $counts = getDashboardAdminCounts($conn);
                                     <!--end::Row-->
                                     <!--begin::Row-->
                                     <!-- /.row (main row) -->
-                                  <p class="p-copyright"></p>
+                                  <p class="p-copyright pb-3"></p>
                                   </div>
                                   <!--end::Container-->
                                 </div>

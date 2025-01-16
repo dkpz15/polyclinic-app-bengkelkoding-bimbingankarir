@@ -94,7 +94,9 @@ $doctorName = $_SESSION['doctor_name'];
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -147,7 +149,6 @@ $doctorName = $_SESSION['doctor_name'];
         }
         .p-copyright{
           font-weight: 500;
-          margin-top: 358px;
         }
     </style>
   </head>
@@ -212,9 +213,9 @@ $doctorName = $_SESSION['doctor_name'];
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">
-                            <a href="doctorCheckPatient.php" class="nav-link sidebar-link">
+                            <a href="doctorCheckPatients.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-calendar2-check text-primary"></i>
-                                <p style="font-weight: 500;">Check Patient</p>
+                                <p style="font-weight: 500;">Check Patients</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">
@@ -376,7 +377,7 @@ $doctorName = $_SESSION['doctor_name'];
                                             ></path>
                                           </svg>
                                           <a
-                                            href="doctorCheckPatient.php"
+                                            href="doctorCheckPatients.php"
                                             class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover text-white"
                                           >
                                             More info <i class="bi bi-link-45deg"></i>
@@ -424,7 +425,7 @@ $doctorName = $_SESSION['doctor_name'];
                                     <!--end::Row-->
                                     <!--begin::Row-->
                                     <!-- /.row (main row) -->
-                                  <p class="p-copyright"></p>
+                                  <p class="p-copyright pb-3"></p>
                                   </div>
                                   <!--end::Container-->
                                 </div>

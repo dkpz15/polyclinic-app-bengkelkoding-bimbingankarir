@@ -128,7 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             position: fixed !important ;
             top: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
+            background-color: white;
+            transition : 0.3s linear;
         }
         table {
             width: 100%;
@@ -317,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <textarea id="complaint" name="complaint" placeholder="Please enter your complaint..." class="px-2 py-2" style="min-height: 150px;" required></textarea>
                                         <button type="submit" name="register_to_poly" class="btn btn-add btn-patient-to-poly-register btn-primary mt-3">Register</button>
                                     </form> 
-                                <p class="p-copyright mt-5 pb-3"></p>
+                                <p class="p-copyright pb-3"></p>
                             </div>
                         </div>
                     </div>

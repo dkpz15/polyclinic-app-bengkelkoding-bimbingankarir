@@ -19,7 +19,7 @@ class PatientToPolyRegisterModel {
         $query = "INSERT INTO poly_list (patient_id, schedule_id, complaint, queue_number) 
                   VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iiis", $patient_id, $schedule_id, $complaint, $queue_number);
+        $stmt->bind_param("iisi", $patient_id, $schedule_id, $complaint, $queue_number);
         return $stmt->execute();
     }
 }
