@@ -7,7 +7,7 @@ class DoctorPatientsHistoryModel {
     }
 
     public function get($id) {
-        $query = "SELECT c.check_date, p.name AS patient_name, c.note, c.check_fee
+        $query = "SELECT c.check_date, p.name AS patient_name, c.medicine_name, c.note, c.check_fee
                   FROM checkup c
                   JOIN poly_list pl ON c.poly_list_id = pl.id
                   JOIN patient p ON pl.patient_id = p.id

@@ -45,9 +45,10 @@ if ($doctor['status'] === 'active' &&  empty($_SESSION['alert_shown'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
     if (isset($_POST['doctor_check_patient'])) {
         $poly_list_id = $_POST['poly_list_id'];
-        $note = $_POST['note'];
         $medicine_ids = $_POST['medicine_ids'];
-
+        $medicine_names = $_POST['medicine_names'];
+        $note = $_POST['note'];
+        
         // Calculate the checkup fee
         $check_fee = 150000; // Base fee
         foreach ($medicine_ids as $medicine_id) {
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $check_fee += $result['price'];
         }
 
-        if (addCheck($conn, $poly_list_id, implode(', ', $note), $check_fee)) {
+        if (addCheck($conn, $poly_list_id, implode(', ', $medicine_names), implode(', ', $note), $check_fee)) {
             $sweetAlert2DoctorCheckPatient = 
                 "Swal.fire({
                     title: 'Success!',
@@ -358,47 +359,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = $patients->fetch_assoc()) { ?>
-                                            <tr>
-                                                <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
-                                                <td class="px-2 py-2"><?= $row['complaint'] ?></td>
-                                                <td class="px-2 py-2"><?= $row['queue_number'] ?></td>
-                                                <td class="px-2 py-2">
-                                                    <form method="POST" action="doctorCheckPatients.php">
-                                                        <input type="hidden" name="poly_list_id" value="<?= $row['poly_list_id'] ?>">
+                                        <?php if (!empty($patients)): ?>
+                                            <?php while ($row = $patients->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
+                                                    <td class="px-2 py-2"><?= $row['complaint'] ?></td>
+                                                    <td class="px-2 py-2"><?= $row['queue_number'] ?></td>
+                                                    <td class="px-2 py-2">
+                                                        <form method="POST" action="doctorCheckPatients.php">
+                                                            <input type="hidden" name="poly_list_id" value="<?= $row['poly_list_id'] ?>">
 
-                                                        <div id="medicine-container">
-                                                            <div class="form">
-                                                                <label for="medicine-select">Select Medicine :</label><br/>
-                                                                <select id="medicine-select" class="px-2 py-2 w-100" required>
-                                                                    <option value="" selected disabled>Select Medicine</option>
-                                                                    <?php
-                                                                    $query = "SELECT id, medicine_name, price FROM medicine";
-                                                                    $result = $conn->query($query);
-                                                                    while ($medicine = $result->fetch_assoc()) {
-                                                                        $formatted_price = number_format($medicine['price'], 0, ',', '.'); 
-                                                                        echo "<option value='{$medicine['id']}' data-price='{$medicine['price']}'>
-                                                                                {$medicine['medicine_name']} | Price: {$formatted_price}
-                                                                            </option>";
-                                                                    }
-                                                                    ?>
-                                                                </select><br/>
-                                                                <button type="button" id="add-medicine" class="btn btn-add btn-doctor-check-patient btn-primary mt-3">Add Medicine</button>
+                                                            <div id="medicine-container">
+                                                                <div class="form">
+                                                                    <label for="medicine-select">Select Medicine :</label><br/>
+                                                                    <select id="medicine-select" class="px-2 py-2 w-100" required>
+                                                                        <option value="" selected disabled>Select Medicine</option>
+                                                                        <?php
+                                                                        $query = "SELECT id, medicine_name, price FROM medicine";
+                                                                        $result = $conn->query($query);
+                                                                        while ($medicine = $result->fetch_assoc()) {
+                                                                            $formatted_price = number_format($medicine['price'], 0, ',', '.'); 
+                                                                            echo "<option value='{$medicine['id']}' data-price='{$medicine['price']}'>
+                                                                                    {$medicine['medicine_name']} | Price: {$formatted_price}
+                                                                                </option>";
+                                                                        }
+                                                                        ?>
+                                                                    </select><br/>
+                                                                    <button type="button" id="add-medicine" class="btn btn-add btn-doctor-check-patient btn-primary mt-3">Add Medicine</button>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div id="added-medicines"></div>
+                                                            <div id="added-medicines"></div>
 
-                                                        <div class="form mt-3">
-                                                            <label>Total Checkup Fee :</label>
-                                                            <input type="text" name="medicine_prices[]" id="total-fee" class="px-2 py-2" value="<?= number_format(150000, 0, ',', '.')?>" disabled>
-                                                        </div>
+                                                            <div class="form mt-3">
+                                                                <label>Total Checkup Fee :</label>
+                                                                <input type="text" name="medicine_prices[]" id="total-fee" class="px-2 py-2" value="<?= number_format(150000, 0, ',', '.')?>" disabled>
+                                                            </div>
 
-                                                        <button type="submit" name="doctor_check_patient" class="btn btn-add btn-doctor-check-patient btn-success mt-3">Check</button>
-                                                    </form>
-                                                </td>
+                                                            <button type="submit" name="doctor_check_patient" class="btn btn-add btn-doctor-check-patient btn-success mt-3">Check</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="4" class="text-center px-2 py-2">No patients checked.</td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>          
                                 <p class="p-copyright pb-3"></p>
@@ -454,7 +461,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="hidden" name="medicine_ids[]" value="${medicineId}">
                             <div class="form">
                                 <label class="mt-4">Medicine :</label><br/>
-                                <input type="text" name="medicine_names[]"class="px-2 py-2 w-100" value="${medicineName}" disabled>
+                                <input type="text" name="medicine_names[]"class="px-2 py-2 w-100" value="${medicineName}" readonly>
                             </div>
                             <div class="form">
                                 <label class="mt-2">Medicine Notes:</label>

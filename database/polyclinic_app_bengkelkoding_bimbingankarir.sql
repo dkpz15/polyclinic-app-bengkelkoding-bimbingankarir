@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 13, 2025 at 04:42 PM
+-- Generation Time: Jan 17, 2025 at 02:01 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -50,7 +50,8 @@ CREATE TABLE `checkup` (
   `id` int NOT NULL,
   `poly_list_id` int NOT NULL,
   `check_date` date NOT NULL,
-  `note` text NOT NULL,
+  `medicine_name` varchar(50) NOT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `check_fee` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -58,13 +59,8 @@ CREATE TABLE `checkup` (
 -- Dumping data for table `checkup`
 --
 
-INSERT INTO `checkup` (`id`, `poly_list_id`, `check_date`, `note`, `check_fee`) VALUES
-(4, 4, '2025-01-07', '1x sehari sebelum makan', 160000),
-(5, 9, '2025-01-07', '3x sehari sesudah makan, 1x sehari saat malam sebelum makan', 200000),
-(6, 6, '2025-01-07', '3x sehari setelah makan', 165000),
-(7, 5, '2025-01-07', '1x sehari setelah makan saat malam, 3x sehari sebelum makan', 205000),
-(8, 7, '2025-01-09', '1x sehari setelah makan, 1x sehari setelah makan', 165000),
-(9, 10, '2025-01-09', '2x sehari saat pagi dan malam, Vitamin diminum setelah makan 3x sehari', 205000);
+INSERT INTO `checkup` (`id`, `poly_list_id`, `check_date`, `medicine_name`, `note`, `check_fee`) VALUES
+(28, 31, '2025-01-17', 'Paramex, Vitamin', '1x sehari setelah makan, 3x sehari setelah makan', 200000);
 
 -- --------------------------------------------------------
 
@@ -75,7 +71,9 @@ INSERT INTO `checkup` (`id`, `poly_list_id`, `check_date`, `note`, `check_fee`) 
 CREATE TABLE `check_detail` (
   `id` int NOT NULL,
   `check_id` int NOT NULL,
-  `medicine_id` int NOT NULL
+  `medicine_id` int NOT NULL,
+  `medicine_name` varchar(50) NOT NULL,
+  `note` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -105,7 +103,8 @@ INSERT INTO `check_schedule` (`id`, `doctor_id`, `day`, `start_time`, `end_time`
 (16, 43, 'Sunday', '12:03:00', '15:05:00'),
 (17, 43, 'Tuesday', '12:10:00', '17:05:00'),
 (18, 43, 'Friday', '20:08:00', '12:04:00'),
-(19, 43, 'Thursday', '05:04:00', '07:07:00');
+(19, 43, 'Thursday', '05:04:00', '07:07:00'),
+(20, 43, 'Saturday', '11:56:00', '12:56:00');
 
 -- --------------------------------------------------------
 
@@ -131,7 +130,7 @@ INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`
 (37, 'Radit', '$2y$10$Nakv48qKQFaMEcfFkftZWOZxvltYPWhGDS6B8pY0JpuLIyHIaW/p2', 'Ngaliyan', 628198291001, 1, 'inactive'),
 (38, 'Darren', '$2y$10$fI18P5BYCfhTxrPxCsfYoujRVcLl.NW3xV5WjLPAdS32noT.lYBcG', 'Tlogosari', 6281890102012, 1, 'inactive'),
 (42, 'Rudi', '$2y$10$6b0M1Hsj.IUBmmHsg/S1KeZcf/xetrs7FsLwnlZo/ezIn9T80uHye', 'Ungaran', 629189109012, 12, 'inactive'),
-(43, 'Rizal', '$2y$10$LaPp3R/ITcdTcKi6JGjV5O/95yAqbebvMrLOe8s17u8b1Yho2rG/2', 'Pleburan', 628129911282871, 11, 'active'),
+(43, 'Rizal', '$2y$10$HmLO2bd9lDwboWu00ipdGOO.p55RfwjFTnZO6TdenV9H372hDbFza', 'Bandungan', 628129911282871, 11, 'active'),
 (44, 'Brahim', '$2y$10$UBoNRRoYnlXEgbKcutRY0OTPXuimUhC29PCyta3gEqSHBh0QVlvOK', 'Pandanaran', 6291715168021, 13, 'inactive');
 
 -- --------------------------------------------------------
@@ -178,10 +177,11 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id`, `name`, `password`, `address`, `identity_card_number`, `mobile_phone_number`, `medical_record_number`) VALUES
-(55, 'Darren Marcellino ', '$2y$10$APdZeWNiOX1Akw7eNkk4euSRJ.IC1Our.9tATtyLL2TH8deRPR656', 'Tlogosari', 339188881211, 6291992198267, '202501-1'),
+(55, 'Darren Marcellino Setiawan', '$2y$10$APdZeWNiOX1Akw7eNkk4euSRJ.IC1Our.9tATtyLL2TH8deRPR656', 'Tlogosari', 339188881211, 6291992198267, '202501-1'),
 (56, 'Yohanes Diyan Hariawan', '$2y$10$RkjjBM/gAvlet.GF.wnAne63oeGhbJrXRbTERwH/h.ubwbAxBPe.e', 'Ngaliyan', 3918812992938, 621892200111, '202501-2'),
 (57, 'Ardennata Winarto', '$2y$10$UgT0dmNRd1vNceoBZWVPFedGeBOwTiDkweqTlHfwH.RZGMTiwDqRm', 'Tanah Putih', 31882912021012, 629891881289912, '202501-3'),
-(58, 'Steven Felisiano', '$2y$10$ezMM2d4hVRFU90preB7YFuO86ZkDyKflX2qAVtlJlqdUTnoWD.Nz6', 'Karangwulan', 71881818223823, 628199199929, '202501-4');
+(58, 'Steven Felisiano', '$2y$10$ezMM2d4hVRFU90preB7YFuO86ZkDyKflX2qAVtlJlqdUTnoWD.Nz6', 'Karangwulan', 71881818223823, 628199199929, '202501-4'),
+(59, 'Aditya Putra', '$2y$10$sdlCkIWWSSuSeusWPODgo.zl1oQoEGE9oivT1ki9IdZE4nMuHBvQS', 'Genuk', 338182891921912, 628182219212, '202501-5');
 
 -- --------------------------------------------------------
 
@@ -224,15 +224,10 @@ CREATE TABLE `poly_list` (
 --
 
 INSERT INTO `poly_list` (`id`, `patient_id`, `schedule_id`, `complaint`, `queue_number`) VALUES
-(3, 55, 11, '0', 1),
-(4, 56, 13, '0', 1),
-(5, 56, 18, '0', 1),
-(6, 57, 16, '0', 1),
-(7, 57, 18, '0', 2),
-(8, 57, 12, '0', 1),
-(9, 57, 13, '0', 2),
-(10, 58, 16, '1', 2),
-(11, 58, 14, '1', 1);
+(31, 56, 16, 'Kepala saya sakit', 1),
+(32, 56, 19, 'Perut saya kembung', 1),
+(33, 56, 13, 'Gigi saya berlubang', 1),
+(34, 59, 16, 'Kaki saya gatal-gatal', 2);
 
 --
 -- Indexes for dumped tables
@@ -313,49 +308,49 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `checkup`
 --
 ALTER TABLE `checkup`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `check_detail`
 --
 ALTER TABLE `check_detail`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `check_schedule`
 --
 ALTER TABLE `check_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `poly`
 --
 ALTER TABLE `poly`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `poly_list`
 --
 ALTER TABLE `poly_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables

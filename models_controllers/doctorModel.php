@@ -50,7 +50,7 @@ class DoctorModel {
 
     public function get() {
         $query = "SELECT id, name, status FROM doctor";
-        return $conn->query($query);
+        return $this->conn->query($query);
     }
 
     public function updateStatus($id, $status) {
@@ -58,7 +58,7 @@ class DoctorModel {
         $id = (int) $id;
     
         $query = "UPDATE doctor SET status = '$status' WHERE id = $id";
-        if ($conn->query($query)) {
+        if ($this->conn->query($query)) {
             return $id;
         } else {
             return false;
@@ -67,12 +67,12 @@ class DoctorModel {
 
     public function getActive() {
         $query = "SELECT id, name FROM doctor WHERE status = 'active' LIMIT 1";
-        return $conn->query($query)->fetch_assoc();
+        return $this->conn->query($query)->fetch_assoc();
     }
 
     public function setInactiveForOthers() {
         $query = "UPDATE doctor SET status = 'inactive' WHERE status = 'active'";
-        return $conn->query($query);
+        return $this->conn->query($query);
     }
 }
 ?>

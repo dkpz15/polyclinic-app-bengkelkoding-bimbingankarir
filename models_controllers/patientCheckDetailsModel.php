@@ -10,10 +10,10 @@ class PatientCheckDetailsModel {
         $stmt = $this->conn->prepare("
             SELECT 
                 c.check_date, 
-                d.name AS doctor_name, 
+                d.name AS doctor_name,
+                c.medicine_name,  
                 c.note, 
-                c.check_fee, 
-                GROUP_CONCAT(m.medicine_name SEPARATOR ', ') AS medicines 
+                c.check_fee
             FROM 
                 checkup c
             JOIN 

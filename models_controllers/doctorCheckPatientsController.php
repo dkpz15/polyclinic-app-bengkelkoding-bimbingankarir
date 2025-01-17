@@ -6,8 +6,8 @@ function getPatientsRegisteredForPoly($conn, $id) {
     return $doctorCheckPatientModel->getPatientsRegister($id);
 }
 
-function addCheck($conn, $poly_list_id, $note, $check_fee) {
+function addCheck($conn, $poly_list_id, $medicine_name, $note, $check_fee) {
     $doctorCheckPatientModel = new DoctorCheckPatientModel($conn);
-    return $doctorCheckPatientModel->add($poly_list_id, $note, $check_fee);
+    return $doctorCheckPatientModel->add($poly_list_id, $medicine_name, $note, $check_fee);
 }
 ?>

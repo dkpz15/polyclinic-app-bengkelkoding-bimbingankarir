@@ -287,19 +287,25 @@ $sweetAlert2DoctorPatientsHistory = '';
                                         <tr class="text-center">
                                             <th class="px-3 py-2">Check Date</th>
                                             <th class="px-3 py-2">Patient Name</th>
-                                            <th class="px-3 py-2">Notes</th>
+                                            <th class="px-3 py-2">Medicine Names & Medicine Notes</th>
                                             <th class="px-3 py-2">Check Fee</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = $patient_history->fetch_assoc()) { ?>
+                                        <?php if (!empty($patient_history)): ?>
+                                            <?php while ($row = $patient_history->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td class="px-2 py-2"><?= date('d-m-Y', strtotime($row['check_date'])) ?></td>
+                                                    <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
+                                                    <td class="px-2 py-2"><?= $row['medicine_name'] ?> : <?= $row['note'] ?></td>
+                                                    <td class="px-2 py-2"><?= number_format($row['check_fee'], 0, ',', '.') ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php else: ?>
                                             <tr>
-                                                <td class="px-2 py-2"><?= date('d-m-Y', strtotime($row['check_date'])) ?></td>
-                                                <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
-                                                <td class="px-2 py-2"><?= $row['note'] ?></td>
-                                                <td class="px-2 py-2"><?= number_format($row['check_fee'], 0, ',', '.') ?></td>
+                                                <td colspan="4" class="text-center px-2 py-2">No patients history.</td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                                 <p class="p-copyright pb-3"></p>

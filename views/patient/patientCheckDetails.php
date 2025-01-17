@@ -276,7 +276,7 @@ $sweetAlert2PatientCheckDetails = '';
                                         <tr class="text-center">
                                             <th class="px-3 py-2">Check Date</th>
                                             <th class="px-3 py-2">Doctor Name</th>
-                                            <th class="px-3 py-2">Notes</th>
+                                            <th class="px-3 py-2">Medicine Names & Medicine Notes</th>
                                             <th class="px-3 py-2">Total Fee</th>
                                         </tr>
                                     </thead>
@@ -286,13 +286,13 @@ $sweetAlert2PatientCheckDetails = '';
                                                 <tr>
                                                     <td class="px-2 py-2"><?= htmlspecialchars($detail['check_date']) ?></td>
                                                     <td class="px-2 py-2"><?= htmlspecialchars($detail['doctor_name']) ?></td>
-                                                    <td class="px-2 py-2"><?= nl2br(htmlspecialchars($detail['note'])) ?></td>
+                                                    <td class="px-2 py-2"><?= htmlspecialchars($detail['medicine_name']) ?> : <?= htmlspecialchars($detail['note']) ?></td>
                                                     <td class="px-2 py-2"><?= number_format($detail['check_fee'], 0, ',', '.') ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="4" class="text-center px-2 py-2">No checkup details found.</td>
+                                                <td colspan="4" class="text-center px-2 py-2">No check details found.</td>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
