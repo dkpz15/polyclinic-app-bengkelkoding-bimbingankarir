@@ -98,13 +98,14 @@ The Polyclinic App is a web-based application designed to manage and streamline 
 
 ### Checkup Table
 
-| Field        | Type | Constraints                                   |
-| ------------ | ---- | --------------------------------------------- |
-| id           | INT  | PRIMARY KEY, AUTO_INCREMENT                   |
-| poly_list_id | INT  | FOREIGN KEY REFERENCES poly_list(id) NOT NULL |
-| check_date   | DATE | NOT NULL                                      |
-| note         | TEXT | NOT NULL                                      |
-| check_fee    | INT  | DEFAULT 0                                     |
+| Field         | Type         | Constraints                                   |
+| ------------- | ------------ | --------------------------------------------- |
+| id            | INT          | PRIMARY KEY, AUTO_INCREMENT                   |
+| poly_list_id  | INT          | FOREIGN KEY REFERENCES poly_list(id) NOT NULL |
+| check_date    | DATE         | NOT NULL                                      |
+| medicine_name | VARCHAR(255) | NOT NULL                                      |
+| note          | TEXT         | NOT NULL                                      |
+| check_fee     | INT          | DEFAULT 0                                     |
 
 ### Check_Schedule Table
 

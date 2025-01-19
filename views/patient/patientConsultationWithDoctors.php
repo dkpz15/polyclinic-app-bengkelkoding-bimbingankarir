@@ -1,20 +1,93 @@
 <?php
 session_start();
 include '../../config/database.php';
-include '../../models_controllers/doctorPatientsHistoryController.php';
+include '../../models_controllers/consultationController.php';
 
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
-    header('Location: ../auth/doctorAdminSignIn.php');
+    header('Location: ../auth/patientSignIn.php');
     exit;
 }
 
-$doctorName = $_SESSION['doctor_name'];
+$patientName = $_SESSION['patient_name'];
 
-$doctorId = $_SESSION['doctor_id'];
+$patientId = $_SESSION['patient_id'];
 
-$patient_history = getPatientsHistory($conn, $doctorId);
+$consultations = getConsultationsForPatient($conn, $patientId);
 
-$sweetAlert2DoctorPatientsHistory = '';
+$sweetAlert2PatientConsultationWithDoctors = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['add_consultation'])) {
+        $doctorId = $_POST['doctor_id'];
+        $question = $_POST['question'];
+
+        $result = createConsultation($conn, $patientId, $doctorId, $question);
+
+        if($result){
+            $sweetAlert2PatientConsultationWithDoctors = 
+                "Swal.fire({
+                    title: 'Success!',
+                    text: 'Consultation added successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'patientConsultationWithDoctors.php';
+                });";
+        }
+        else{
+            $sweetAlert2PatientConsultationWithDoctors = 
+                "Swal.fire({
+                    title: 'Error!',
+                    text: 'Add consultation failed.',
+                    icon: 'error'
+                }).then(() => {
+                    window.location.href = 'patientConsultationWithDoctors.php';
+                });";
+        }
+        
+    } elseif (isset($_POST['edit_consultation'])) {
+        $consultationId = $_POST['consultation_id'];
+        $question = $_POST['question'];
+
+        $result = editConsultation($conn, $consultationId, $question);
+        
+        if($result){
+            $sweetAlert2PatientConsultationWithDoctors = 
+                "Swal.fire({
+                    title: 'Success!',
+                    text: 'Consultation updated successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'patientConsultationWithDoctors.php';
+                });";
+        }
+        else{
+            $sweetAlert2PatientConsultationWithDoctors = 
+                "Swal.fire({
+                    title: 'Error!',
+                    text: 'Update consultation failed.',
+                    icon: 'error'
+                }).then(() => {
+                    window.location.href = 'patientConsultationWithDoctors.php';
+                });";
+        }
+    } elseif (isset($_POST['delete_consultation'])) {
+        $consultationId = $_POST['consultation_id'];
+
+        $result = removeConsultation($conn, $consultationId);
+
+        if($result){
+            $sweetAlert2PatientConsultationWithDoctors = 
+                "Swal.fire({
+                    title: 'Success!',
+                    text: 'Consultation deleted successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'patientConsultationWithDoctors.php';
+                });";
+        }
+        
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +95,18 @@ $sweetAlert2DoctorPatientsHistory = '';
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Doctor Patients History</title>
+    <title>Patient Consultation With Doctors</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Doctor Patients History" />
+    <meta name="title" content="Patient Consultation With Doctors" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="Doctor Patients History."
+      content="Patient Consultation With Doctors."
     />
     <meta
       name="keywords"
-      content="Doctor Patients History"
+      content="Patient Consultation With Doctors"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
@@ -123,7 +196,7 @@ $sweetAlert2DoctorPatientsHistory = '';
             color: #fff !important;
         }
 
-        .btn-doctor-input-schedule::before{
+        .btn-patient-consultation-with-doctors::before{
             transition : 0s linear !important;
         }
         .btn-add:hover::before, .btn-add-add-modal:hover::before, .btn-update-edit-modal:hover::before{
@@ -208,33 +281,21 @@ $sweetAlert2DoctorPatientsHistory = '';
                                 <p style="font-weight: 500;">Dashboard</p>
                             </a>
                         <li class="nav-item sidebar-item">
-                            <a href="doctorProfileUpdate.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-person-square text-primary"></i>
-                                <p style="font-weight: 500;">Update Data</p>
-                            </a>
-                        </li>
-                        <li class="nav-item sidebar-item ">
-                            <a href="doctorInputSchedule.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-credit-card-2-back text-primary"></i>
-                                <p style="font-weight: 500;">Check Schedule Input</p>
+                            <a href="patientToPolyRegister.php" class="nav-link sidebar-link">
+                                <i class="nav-icon bi bi-card-checklist text-primary"></i>
+                                <p style="font-weight: 500;">Register To Poly</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item">
-                            <a href="doctorCheckPatients.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-calendar2-check text-primary"></i>
-                                <p style="font-weight: 500;">Check Patients</p>
+                            <a href="patientCheckDetails.php" class="nav-link sidebar-link">
+                                <i class="nav-icon bi bi-ticket-detailed text-primary"></i>
+                                <p style="font-weight: 500;">Check Details</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item active">
-                            <a href="doctorPatientsHistory.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-clock-history text-primary color-i"></i>
-                                <p class="color-p" style="font-weight: 500;">Patients History</p>
-                            </a>
-                        </li>
-                        <li class="nav-item sidebar-item">
-                            <a href="doctorReplyPatientsConsultation.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-reply text-primary"></i>
-                                <p style="font-weight: 500;">Reply Patients Consultation</p>
+                            <a href="patientConsultationWithDoctors.php" class="nav-link sidebar-link">
+                                <i class="nav-icon bi bi-view-list text-primary color-i"></i>
+                                <p class="color-p" style="font-weight: 500;">Consultation With Doctors</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item sign-out-sidebar">
@@ -261,7 +322,7 @@ $sweetAlert2DoctorPatientsHistory = '';
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Patients History</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Consultation With Doctors</a></li>
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
@@ -270,11 +331,11 @@ $sweetAlert2DoctorPatientsHistory = '';
                     <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img
-                        src="../../assets/img/doctor-profile.jpg"
+                        src="../../assets/img/patient-profile.jpg"
                         class="user-image rounded-circle shadow"
                         alt="User Image"
                         />
-                        <span class="d-none d-md-inline" style="text-transform: capitalize;font-weight: 500"><?= htmlspecialchars($doctorName); ?></span>
+                        <span class="d-none d-md-inline" style="text-transform: capitalize;font-weight: 500"><?= htmlspecialchars($patientName); ?></span>
                     </a>
                 <!--end::End Navbar Links-->
                 </div>
@@ -282,38 +343,93 @@ $sweetAlert2DoctorPatientsHistory = '';
             </nav>
             <!--end::Header-->
             <!--begin::Sidebar-->
-            
+            <!-- patientConsultations.php -->
+
             <!--end::Sidebar-->
             <!--begin::App Main-->
+
+        <!-- Add Consultation Modal -->
                     <div class="container-fluid pe-5 w-100">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
+                                <h2 class="mt-4">Consultation With Doctors</h2>
+                                <button class="btn btn-primary btn-add btn-patient-consultation-with-doctors my-3" data-bs-toggle="modal" data-bs-target="#addModal">Add Consultation</button>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr class="text-center">
-                                            <th class="px-3 py-2">Check Date</th>
-                                            <th class="px-3 py-2">Patient Name</th>
-                                            <th class="px-3 py-2">Medicine Names & Medicine Notes</th>
-                                            <th class="px-3 py-2">Check Fee</th>
+                                            <th class="px-3 py-2">Consultation Date</th>
+                                            <th class="px-3 py-2">Doctor Name</th>
+                                            <th class="px-3 py-2">Question</th>
+                                            <th class="px-3 py-2">Answer</th>
+                                            <th class="px-3 py-2">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if (!empty($patient_history)): ?>
-                                            <?php while ($row = $patient_history->fetch_assoc()) { ?>
-                                                <tr>
-                                                    <td class="px-2 py-2"><?= date('d-m-Y', strtotime($row['check_date'])) ?></td>
-                                                    <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
-                                                    <td class="px-2 py-2"><?= $row['medicine_name'] ?> : <?= $row['note'] ?></td>
-                                                    <td class="px-2 py-2"><?= number_format($row['check_fee'], 0, ',', '.') ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        <?php else: ?>
+                                        <?php while ($row = $consultations->fetch_assoc()) { ?>
                                             <tr>
-                                                <td colspan="4" class="text-center px-2 py-2">No patients history.</td>
+                                                <td class="px-2 py-2"><?= $row['consultation_date'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['doctor_name'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['question'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['answer'] ?: 'No answer yet' ?></td>
+                                                <td class="d-flex justify-content-center gap-1">
+                                                    <button class="btn btn-warning btn-edit btn-patient-consultation-with-doctors" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['id'] ?>">Edit</button>
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="consultation_id" value="<?= $row['id'] ?>">
+                                                        <button class="btn btn-danger btn-delete btn-patient-consultation-with-doctors" name="delete_consultation">Delete</button>
+                                                    </form>
+                                                </td>
                                             </tr>
-                                        <?php endif; ?>
+                                            <div class="modal fade" id="editModal<?= $row['id'] ?>" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <form method="POST">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit Consultation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <textarea name="question" class="form px-2 py-2" style="min-height: 150px;" required><?= $row['question'] ?></textarea>
+                                                                <input type="hidden" name="consultation_id" value="<?= $row['id'] ?>">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="edit_consultation" class="btn btn-primary btn-add btn-patient-consultation-with-doctors">Update</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
+                                <div class="modal fade" id="addModal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <form method="POST">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Add Consultation</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="doctor_id">Select a Doctor : </label><br>
+                                                    <select name="doctor_id" class="form px-2 py-2 w-100" required>
+                                                        <option value="" selected disabled>Select a Doctor</option>
+                                                        <?php
+                                                        $doctors = $conn->query("SELECT id, name FROM doctor");
+                                                        while ($doctor = $doctors->fetch_assoc()) {
+                                                            echo "<option value='{$doctor['id']}'>{$doctor['name']}</option>";
+                                                        }
+                                                        ?>
+                                                    </select><br>
+                                                    <label for="question" class="mt-3">Question</label>
+                                                    <textarea name="question" class="form px-2 py-2 w-100" style="min-height: 150px;" required placeholder="Enter your question..."></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="add_consultation" class="btn btn-add btn-patient-consultation-with-doctors btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <p class="p-copyright pb-3"></p>
                             </div>
                         </div>
@@ -349,8 +465,9 @@ $sweetAlert2DoctorPatientsHistory = '';
     <script src="../../assets/js/dashboard.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
-        <?= $sweetAlert2DoctorPatientsHistory ?>
+        <?= $sweetAlert2PatientConsultationWithDoctors ?>
         
+
         document.addEventListener('DOMContentLoaded', function () {
             if(document.body.classList.contains("sidebar-open")){
                     const divOne = document.querySelector(".div-one");
@@ -457,34 +574,6 @@ $sweetAlert2DoctorPatientsHistory = '';
                 showConfirmButton: true
                 });
             }
-            });
-        });
-
-        const editDoctorModal = document.querySelector('#editDoctorModal');
-        editDoctorModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const id = button.getAttribute('data-id');
-            const name = button.getAttribute('data-name');
-            const password = button.getAttribute('data-password');
-            const address = button.getAttribute('data-address');
-            const mobilePhoneNumber = button.getAttribute('data-mobile-phone-number');
-            const polyId = button.getAttribute('data-poly-id');
-
-            const modalId = document.querySelector('#editId');
-            const modalName = document.querySelector('#editName');
-            const modalPassword = document.querySelector('#editPassword');
-            const modalAddress = document.querySelector('#editAddress');
-            const modalMobilePhoneNumber = document.querySelector('#editMobilePhoneNumber');
-            const modalPolyId = document.querySelector('#editPolyId');
-
-            modalId.value = id;
-            modalName.value = name;
-            modalPassword.value = password;
-            modalAddress.value = address;
-            modalMobilePhoneNumber.value = mobilePhoneNumber;
-
-            Array.from(modalPolyId.options).forEach(function (option) {
-                option.selected = (option.value == polyId);
             });
         });
 

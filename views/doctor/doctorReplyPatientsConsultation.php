@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../../config/database.php';
-include '../../models_controllers/doctorPatientsHistoryController.php';
+include '../../models_controllers/consultationController.php';
 
 if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
     header('Location: ../auth/doctorAdminSignIn.php');
@@ -12,9 +12,30 @@ $doctorName = $_SESSION['doctor_name'];
 
 $doctorId = $_SESSION['doctor_id'];
 
-$patient_history = getPatientsHistory($conn, $doctorId);
+$consultations = getConsultationsForDoctor($conn, $doctorId);
 
-$sweetAlert2DoctorPatientsHistory = '';
+$sweetAlert2DoctorReplyPatientsConsultation = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['answer_consultation'])) {
+        $consultationId = $_POST['consultation_id'];
+        $answer = $_POST['answer'];
+
+        $result = respondToConsultation($conn, $consultationId, $answer);
+
+        if($result){
+            $sweetAlert2DoctorReplyPatientsConsultation = 
+                "Swal.fire({
+                    title: 'Success!',
+                    text: 'Consultation answered successfully.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'doctorReplyPatientsConsultation.php';
+                });";
+        }
+        
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +43,18 @@ $sweetAlert2DoctorPatientsHistory = '';
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Doctor Patients History</title>
+    <title>Doctor Reply Patients Consultation</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="Doctor Patients History" />
+    <meta name="title" content="Doctor Reply Patients Consultation" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="Doctor Patients History."
+      content="Doctor Reply Patients Consultation."
     />
     <meta
       name="keywords"
-      content="Doctor Patients History"
+      content="Doctor Reply Patients Consultation"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
@@ -123,7 +144,7 @@ $sweetAlert2DoctorPatientsHistory = '';
             color: #fff !important;
         }
 
-        .btn-doctor-input-schedule::before{
+        .btn-doctor-reply-patients-consultation::before{
             transition : 0s linear !important;
         }
         .btn-add:hover::before, .btn-add-add-modal:hover::before, .btn-update-edit-modal:hover::before{
@@ -213,7 +234,7 @@ $sweetAlert2DoctorPatientsHistory = '';
                                 <p style="font-weight: 500;">Update Data</p>
                             </a>
                         </li>
-                        <li class="nav-item sidebar-item ">
+                        <li class="nav-item sidebar-item">
                             <a href="doctorInputSchedule.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-credit-card-2-back text-primary"></i>
                                 <p style="font-weight: 500;">Check Schedule Input</p>
@@ -225,16 +246,16 @@ $sweetAlert2DoctorPatientsHistory = '';
                                 <p style="font-weight: 500;">Check Patients</p>
                             </a>
                         </li>
-                        <li class="nav-item sidebar-item active">
+                        <li class="nav-item sidebar-item">
                             <a href="doctorPatientsHistory.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-clock-history text-primary color-i"></i>
-                                <p class="color-p" style="font-weight: 500;">Patients History</p>
+                                <i class="nav-icon bi bi-clock-history text-primary"></i>
+                                <p style="font-weight: 500;">Patients History</p>
                             </a>
                         </li>
-                        <li class="nav-item sidebar-item">
+                        <li class="nav-item sidebar-item active">
                             <a href="doctorReplyPatientsConsultation.php" class="nav-link sidebar-link">
-                                <i class="nav-icon bi bi-reply text-primary"></i>
-                                <p style="font-weight: 500;">Reply Patients Consultation</p>
+                                <i class="nav-icon bi bi-reply text-primary color-i"></i>
+                                <p class="color-p" style="font-weight: 500;">Reply Patients Consultation</p>
                             </a>
                         </li>
                         <li class="nav-item sidebar-item sign-out-sidebar">
@@ -261,7 +282,7 @@ $sweetAlert2DoctorPatientsHistory = '';
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Patients History</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Reply Patients Consultation</a></li>
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
@@ -285,35 +306,57 @@ $sweetAlert2DoctorPatientsHistory = '';
             
             <!--end::Sidebar-->
             <!--begin::App Main-->
+
                     <div class="container-fluid pe-5 w-100">
                         <div class="row justify-content-center">
                             <div class="col-lg-12">
+                                <h2 class="mt-4">Reply Patients Consultation</h2>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr class="text-center">
-                                            <th class="px-3 py-2">Check Date</th>
+                                            <th class="px-3 py-2">Consultation Date</th>
                                             <th class="px-3 py-2">Patient Name</th>
-                                            <th class="px-3 py-2">Medicine Names & Medicine Notes</th>
-                                            <th class="px-3 py-2">Check Fee</th>
+                                            <th class="px-3 py-2">Question</th>
+                                            <th class="px-3 py-2">Answer</th>
+                                            <th class="px-3 py-2">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if (!empty($patient_history)): ?>
-                                            <?php while ($row = $patient_history->fetch_assoc()) { ?>
-                                                <tr>
-                                                    <td class="px-2 py-2"><?= date('d-m-Y', strtotime($row['check_date'])) ?></td>
-                                                    <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
-                                                    <td class="px-2 py-2"><?= $row['medicine_name'] ?> : <?= $row['note'] ?></td>
-                                                    <td class="px-2 py-2"><?= number_format($row['check_fee'], 0, ',', '.') ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        <?php else: ?>
+                                        <?php while ($row = $consultations->fetch_assoc()) { ?>
                                             <tr>
-                                                <td colspan="4" class="text-center px-2 py-2">No patients history.</td>
+                                                <td class="px-2 py-2"><?= $row['consultation_date'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['patient_name'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['question'] ?></td>
+                                                <td class="px-2 py-2"><?= $row['answer'] ?: 'No answer yet' ?></td>
+                                                <td class="d-flex justify-content-center gap-1">
+                                                    <?php if (!$row['answer']) { ?>
+                                                        <button class="btn btn-add btn-primary btn-doctor-reply-patients-consultation" data-bs-toggle="modal" data-bs-target="#answerModal<?= $row['id'] ?>">Answer</button>
+                                                    <?php } ?>
+                                                </td>
                                             </tr>
-                                        <?php endif; ?>
+                                            <!-- Answer Modal -->
+                                            <div class="modal fade" id="answerModal<?= $row['id'] ?>" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <form method="POST">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Answer Consultation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <textarea name="answer" class="form px-2 py-2" style="min-height: 150px;" required placeholder="Enter your answer..."></textarea>
+                                                                <input type="hidden" name="consultation_id" value="<?= $row['id'] ?>">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="answer_consultation" class="btn btn-add btn-primary btn-doctor-reply-patients-consultation">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                     </tbody>
-                                </table>
+                                </table>                       
                                 <p class="p-copyright pb-3"></p>
                             </div>
                         </div>
@@ -349,8 +392,56 @@ $sweetAlert2DoctorPatientsHistory = '';
     <script src="../../assets/js/dashboard.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
-        <?= $sweetAlert2DoctorPatientsHistory ?>
+        <?= $sweetAlert2DoctorReplyPatientsConsultation ?>
         
+        $(document).ready(function () {
+            let baseFee = 150000;
+            let totalFee = baseFee;
+
+            $('#add-medicine').click(function () {
+                const selectedOption = $('#medicine-select option:selected');
+                const medicineId = selectedOption.val();
+                const medicineName = selectedOption.text().split('|')[0].trim();
+                const medicinePrice = parseInt(selectedOption.data('price'));
+
+                if (medicineId && !$('#medicine-' + medicineId).length) {
+                    const newMedicine = `
+                        <div class="medicine-item" id="medicine-${medicineId}">
+                            <input type="hidden" name="medicine_ids[]" value="${medicineId}">
+                            <div class="form">
+                                <label class="mt-4">Medicine :</label><br/>
+                                <input type="text" name="medicine_names[]"class="px-2 py-2 w-100" value="${medicineName}" readonly>
+                            </div>
+                            <div class="form">
+                                <label class="mt-2">Medicine Notes:</label>
+                                <textarea name="note[]" class="px-2 py-2" style="min-height: 150px;" required></textarea>
+                            </div>
+                            <button type="button" class="btn btn-delete btn-doctor-reply-patients-consultation btn-danger remove-medicine mt-2" data-id="${medicineId}" data-price="${medicinePrice}">
+                                Remove
+                            </button>
+                        </div>
+                        <hr>
+                    `;
+                    $('#added-medicines').append(newMedicine);
+                    totalFee += medicinePrice;
+                    updateTotalFee();
+                }
+            });
+
+            $(document).on('click', '.remove-medicine', function () {
+                const medicineId = $(this).data('id');
+                const medicinePrice = $(this).data('price');
+                $('#medicine-' + medicineId).remove();
+                totalFee -= medicinePrice;
+                updateTotalFee();
+            });
+
+            function updateTotalFee() {
+                const formattedFee = totalFee.toLocaleString('en-DE');
+                $('#total-fee').val(formattedFee);
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             if(document.body.classList.contains("sidebar-open")){
                     const divOne = document.querySelector(".div-one");

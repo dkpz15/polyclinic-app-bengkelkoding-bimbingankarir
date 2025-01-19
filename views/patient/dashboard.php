@@ -212,6 +212,12 @@ $patientName = $_SESSION['patient_name'];
                                 <p style="font-weight: 500;">Check Details</p>
                             </a>
                         </li>
+                        <li class="nav-item sidebar-item">
+                            <a href="patientConsultationWithDoctors.php" class="nav-link sidebar-link">
+                                <i class="nav-icon bi bi-view-list text-primary"></i>
+                                <p style="font-weight: 500;">Consultation With Doctors</p>
+                            </a>
+                        </li>
                         <li class="nav-item sidebar-item sign-out-sidebar">
                             <a href="../auth/signOut.php" class="nav-link sidebar-link">
                                 <i class="nav-icon bi bi-box-arrow-right text-primary"></i>
