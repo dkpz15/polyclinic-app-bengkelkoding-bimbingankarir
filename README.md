@@ -6,7 +6,6 @@
 - [Features](#features)
 - [Database Structure](#database-structure)
 - [Installation](#installation)
-- [Usage](#usage)
 - [License](#license)
 
 ---
@@ -104,24 +103,6 @@ The Polyclinic App is a web-based application designed to manage and streamline 
 
 4. Run the application on a PHP server:
    localhost/polyclinic-app-bengkelkoding-bimbingankarir
-
----
-
-## Usage
-
-### Admin Sign In
-
-- Navigate to /views/auth/loginAdminDoctor.php, choose Admin role, and then Sign In to access the Admin dashboard.
-- Use the Admin dashboard to manage Doctors, Patients, Polies, and Medicines.
-
-### Doctor Sign In
-
-- Navigate to /views/auth/loginAdminDoctor.php, choose Doctor role, and then Sign In to access the Doctor dashboard.
-
-### Patient Sign In/Register
-
-- Navigate to /views/auth/registerPatient.php to Register as a new Patient.
-- Navigate to /views/auth/loginPatient.php and Sign In to access the Patient dashboard.
 
 ---
 
