@@ -2,9 +2,9 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jan 17, 2025 at 02:01 PM
--- Server version: 8.0.30
+-- Host: 127.0.0.1
+-- Generation Time: Jan 23, 2025 at 09:41 AM
+-- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
@@ -47,13 +47,13 @@ INSERT INTO `admin` (`id`, `name`, `password`) VALUES
 --
 
 CREATE TABLE `checkup` (
-  `id` int NOT NULL,
-  `poly_list_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `poly_list_id` int(11) NOT NULL,
   `check_date` date NOT NULL,
   `medicine_name` varchar(50) NOT NULL,
-  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `check_fee` int DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `note` text NOT NULL,
+  `check_fee` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `checkup`
@@ -69,12 +69,12 @@ INSERT INTO `checkup` (`id`, `poly_list_id`, `check_date`, `medicine_name`, `not
 --
 
 CREATE TABLE `check_detail` (
-  `id` int NOT NULL,
-  `check_id` int NOT NULL,
-  `medicine_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `check_id` int(11) NOT NULL,
+  `medicine_id` int(11) NOT NULL,
   `medicine_name` varchar(50) NOT NULL,
   `note` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -83,12 +83,12 @@ CREATE TABLE `check_detail` (
 --
 
 CREATE TABLE `check_schedule` (
-  `id` int NOT NULL,
-  `doctor_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
   `day` varchar(10) NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `check_schedule`
@@ -109,18 +109,43 @@ INSERT INTO `check_schedule` (`id`, `doctor_id`, `day`, `start_time`, `end_time`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `consultation`
+--
+
+CREATE TABLE `consultation` (
+  `id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `consultation_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `question` text NOT NULL,
+  `answer` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `consultation`
+--
+
+INSERT INTO `consultation` (`id`, `patient_id`, `doctor_id`, `consultation_date`, `question`, `answer`) VALUES
+(1, 56, 43, '2025-01-23 15:12:40', 'Obat kepala pusing apa dok?', 'Obatnya namanya Paramex'),
+(2, 56, 43, '2025-01-23 15:28:01', 'Perut saya kembung kenapa ya dok?', 'Mungkin masuk angin kak'),
+(3, 55, 37, '2025-01-23 15:28:47', 'Gigi saya sering bau kenapa ya dok dan sering berlubang juga dok', 'Mungkin jarang sikat gigi kakaknya'),
+(5, 55, 44, '2025-01-23 15:30:34', 'Saya sering bengong kenapa ya dok?', 'Mungkin mental anda terganggu');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctor`
 --
 
 CREATE TABLE `doctor` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `mobile_phone_number` bigint UNSIGNED NOT NULL,
-  `poly_id` int NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `mobile_phone_number` bigint(20) UNSIGNED NOT NULL,
+  `poly_id` int(11) NOT NULL,
   `status` enum('active','inactive') DEFAULT 'inactive'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `doctor`
@@ -129,7 +154,6 @@ CREATE TABLE `doctor` (
 INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`, `poly_id`, `status`) VALUES
 (37, 'Radit', '$2y$10$Nakv48qKQFaMEcfFkftZWOZxvltYPWhGDS6B8pY0JpuLIyHIaW/p2', 'Ngaliyan', 628198291001, 1, 'inactive'),
 (38, 'Darren', '$2y$10$fI18P5BYCfhTxrPxCsfYoujRVcLl.NW3xV5WjLPAdS32noT.lYBcG', 'Tlogosari', 6281890102012, 1, 'inactive'),
-(42, 'Rudi', '$2y$10$6b0M1Hsj.IUBmmHsg/S1KeZcf/xetrs7FsLwnlZo/ezIn9T80uHye', 'Ungaran', 629189109012, 12, 'inactive'),
 (43, 'Rizal', '$2y$10$HmLO2bd9lDwboWu00ipdGOO.p55RfwjFTnZO6TdenV9H372hDbFza', 'Bandungan', 628129911282871, 11, 'active'),
 (44, 'Brahim', '$2y$10$UBoNRRoYnlXEgbKcutRY0OTPXuimUhC29PCyta3gEqSHBh0QVlvOK', 'Pandanaran', 6291715168021, 13, 'inactive');
 
@@ -140,11 +164,11 @@ INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`
 --
 
 CREATE TABLE `medicine` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `medicine_name` varchar(50) NOT NULL,
-  `packaging` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `price` int UNSIGNED DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `packaging` varchar(35) NOT NULL,
+  `price` int(10) UNSIGNED DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `medicine`
@@ -163,14 +187,14 @@ INSERT INTO `medicine` (`id`, `medicine_name`, `packaging`, `price`) VALUES
 --
 
 CREATE TABLE `patient` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `identity_card_number` bigint UNSIGNED NOT NULL,
-  `mobile_phone_number` bigint UNSIGNED NOT NULL,
-  `medical_record_number` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `address` varchar(255) NOT NULL,
+  `identity_card_number` bigint(20) UNSIGNED NOT NULL,
+  `mobile_phone_number` bigint(20) UNSIGNED NOT NULL,
+  `medical_record_number` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient`
@@ -190,10 +214,10 @@ INSERT INTO `patient` (`id`, `name`, `password`, `address`, `identity_card_numbe
 --
 
 CREATE TABLE `poly` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `poly_name` varchar(25) NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `poly`
@@ -212,12 +236,12 @@ INSERT INTO `poly` (`id`, `poly_name`, `description`) VALUES
 --
 
 CREATE TABLE `poly_list` (
-  `id` int NOT NULL,
-  `patient_id` int NOT NULL,
-  `schedule_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL,
   `complaint` text NOT NULL,
-  `queue_number` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `queue_number` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `poly_list`
@@ -262,6 +286,14 @@ ALTER TABLE `check_schedule`
   ADD KEY `doctor_id` (`doctor_id`);
 
 --
+-- Indexes for table `consultation`
+--
+ALTER TABLE `consultation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_id` (`patient_id`),
+  ADD KEY `doctor_id` (`doctor_id`);
+
+--
 -- Indexes for table `doctor`
 --
 ALTER TABLE `doctor`
@@ -302,55 +334,61 @@ ALTER TABLE `poly_list`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `checkup`
 --
 ALTER TABLE `checkup`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `check_detail`
 --
 ALTER TABLE `check_detail`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `check_schedule`
 --
 ALTER TABLE `check_schedule`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `consultation`
+--
+ALTER TABLE `consultation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `poly`
 --
 ALTER TABLE `poly`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `poly_list`
 --
 ALTER TABLE `poly_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
@@ -374,6 +412,13 @@ ALTER TABLE `check_detail`
 --
 ALTER TABLE `check_schedule`
   ADD CONSTRAINT `check_schedule_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`);
+
+--
+-- Constraints for table `consultation`
+--
+ALTER TABLE `consultation`
+  ADD CONSTRAINT `consultation_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`),
+  ADD CONSTRAINT `consultation_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`);
 
 --
 -- Constraints for table `doctor`
