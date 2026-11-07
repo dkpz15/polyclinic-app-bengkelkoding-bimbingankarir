@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CakePHP 3
 
 /vendor/*
@@ -23,3 +24,7 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+=======
+
+.codegpt
+>>>>>>> 4ef2f88957ab2781b8950626db7e143acc6c623f
