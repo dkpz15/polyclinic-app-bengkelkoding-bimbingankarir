@@ -153,7 +153,7 @@ CREATE TABLE `doctor` (
 
 INSERT INTO `doctor` (`id`, `name`, `password`, `address`, `mobile_phone_number`, `poly_id`, `status`) VALUES
 (37, 'Radit', '$2y$10$Nakv48qKQFaMEcfFkftZWOZxvltYPWhGDS6B8pY0JpuLIyHIaW/p2', 'Ngaliyan', 628198291001, 1, 'inactive'),
-(38, 'Darren', '$2y$10$fI18P5BYCfhTxrPxCsfYoujRVcLl.NW3xV5WjLPAdS32noT.lYBcG', 'Tlogosari', 6281890102012, 1, 'inactive'),
+(38, 'Rudi', '$2y$10$fI18P5BYCfhTxrPxCsfYoujRVcLl.NW3xV5WjLPAdS32noT.lYBcG', 'Thamrin', 6281890102012, 1, 'inactive'),
 (43, 'Rizal', '$2y$10$HmLO2bd9lDwboWu00ipdGOO.p55RfwjFTnZO6TdenV9H372hDbFza', 'Bandungan', 628129911282871, 11, 'active'),
 (44, 'Brahim', '$2y$10$UBoNRRoYnlXEgbKcutRY0OTPXuimUhC29PCyta3gEqSHBh0QVlvOK', 'Pandanaran', 6291715168021, 13, 'inactive');
 
@@ -201,11 +201,11 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id`, `name`, `password`, `address`, `identity_card_number`, `mobile_phone_number`, `medical_record_number`) VALUES
-(55, 'Darren Marcellino Setiawan', '$2y$10$APdZeWNiOX1Akw7eNkk4euSRJ.IC1Our.9tATtyLL2TH8deRPR656', 'Tlogosari', 339188881211, 6291992198267, '202501-1'),
-(56, 'Yohanes Diyan Hariawan', '$2y$10$RkjjBM/gAvlet.GF.wnAne63oeGhbJrXRbTERwH/h.ubwbAxBPe.e', 'Ngaliyan', 3918812992938, 621892200111, '202501-2'),
-(57, 'Ardennata Winarto', '$2y$10$UgT0dmNRd1vNceoBZWVPFedGeBOwTiDkweqTlHfwH.RZGMTiwDqRm', 'Tanah Putih', 31882912021012, 629891881289912, '202501-3'),
-(58, 'Steven Felisiano', '$2y$10$ezMM2d4hVRFU90preB7YFuO86ZkDyKflX2qAVtlJlqdUTnoWD.Nz6', 'Karangwulan', 71881818223823, 628199199929, '202501-4'),
-(59, 'Aditya Putra', '$2y$10$sdlCkIWWSSuSeusWPODgo.zl1oQoEGE9oivT1ki9IdZE4nMuHBvQS', 'Genuk', 338182891921912, 628182219212, '202501-5');
+(55, 'Rudi Utama', '$2y$10$APdZeWNiOX1Akw7eNkk4euSRJ.IC1Our.9tATtyLL2TH8deRPR656', 'Bandung', 339188881211, 6291992198267, '202501-1'),
+(56, 'Budi Reda', '$2y$10$RkjjBM/gAvlet.GF.wnAne63oeGhbJrXRbTERwH/h.ubwbAxBPe.e', 'Surabaya', 3918812992938, 621892200111, '202501-2'),
+(57, 'Nina Susanto', '$2y$10$UgT0dmNRd1vNceoBZWVPFedGeBOwTiDkweqTlHfwH.RZGMTiwDqRm', 'Jakarta', 31882912021012, 629891881289912, '202501-3'),
+(58, 'Anna Meda', '$2y$10$ezMM2d4hVRFU90preB7YFuO86ZkDyKflX2qAVtlJlqdUTnoWD.Nz6', 'Banten', 71881818223823, 628199199929, '202501-4'),
+(59, 'Adit Putra', '$2y$10$sdlCkIWWSSuSeusWPODgo.zl1oQoEGE9oivT1ki9IdZE4nMuHBvQS', 'Semarang', 338182891921912, 628182219212, '202501-5');
 
 -- --------------------------------------------------------
 
